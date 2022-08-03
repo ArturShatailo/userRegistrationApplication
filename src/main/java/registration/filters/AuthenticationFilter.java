@@ -1,7 +1,10 @@
 /*package registration.filters;
 
+import registration.CookieFactory;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebFilter("/*")
-public class AuthenticationFilter implements Filter {
+public class AuthenticationFilter implements Filter, CookieFactory {
 
     private ServletContext context;
 
@@ -29,17 +32,26 @@ public class AuthenticationFilter implements Filter {
 
         HttpSession session = req.getSession(false);
 
-        if (session == null && !(uri.endsWith("demo/saveServlet") || uri.endsWith("demo/loginServlet") || uri.endsWith("demo/viewServlet"))) {
+        if (session == null && !(uri.endsWith("/personal-area")
+                || uri.endsWith("/personal-area.jsp")
+                || uri.endsWith("/get-user")
+                || uri.endsWith("/viewByIDServlet")
+                || uri.endsWith("/deleteServlet"))) {
             this.context.log("<<< Unauthorized access request");
-            PrintWriter out = res.getWriter();
-            out.println("No access!!!");
+            setCookie(res, "errorMessage", "No access", 5);
+            res.sendRedirect("/registration/login.jsp");
+            //PrintWriter out = res.getWriter();
+            //out.println("No access!!!");
         } else {
             chain.doFilter(request, response);
         }
     }
 
-    public void destroy() {
-        //close any resources here
+    @Override
+    public void setCookie(HttpServletResponse R, String n, String v, int d) {
+        Cookie cookie = new Cookie(n, v);
+        cookie.setMaxAge(d);
+        R.addCookie(cookie);
     }
 }
 */

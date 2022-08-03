@@ -1,5 +1,7 @@
 package registration.session;
 
+import registration.CookieFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -9,28 +11,34 @@ import java.io.PrintWriter;
 /**
  * Servlet implementation class LogoutServlet
  */
-@WebServlet("/LogoutServlet")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/logoutServlet")
+public class LogoutServlet extends HttpServlet implements CookieFactory {
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        Cookie[] cookies = request.getCookies();
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        resp.setContentType("text/html");
+        Cookie[] cookies = req.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){
                 if(cookie.getName().equals("JSESSIONID")){
-                    System.out.println("JSESSIONID="+cookie.getValue());
                     break;
                 }
             }
         }
-        HttpSession session = request.getSession(false);
-        System.out.println("User="+session.getAttribute("user"));
+        HttpSession session = req.getSession(false);
         if(session != null){
             session.invalidate();
         }
-        PrintWriter out = response.getWriter();
-        out.println("Either user name or password is wrong!");
+        setCookie(resp, "successfulMessage", "Logged out", 5);
+        resp.sendRedirect("/registration/login.jsp");
+    }
+
+    @Override
+    public void setCookie(HttpServletResponse R, String n, String v, int d) {
+        Cookie cookie = new Cookie(n, v);
+        cookie.setMaxAge(d);
+        R.addCookie(cookie);
     }
 
 }
