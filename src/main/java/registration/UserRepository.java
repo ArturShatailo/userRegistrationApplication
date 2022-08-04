@@ -14,11 +14,17 @@ public class UserRepository implements Crudable<User> {
      * @return connection instance of class Connection
      */
     public static Connection getConnection() {
-
+/*
         Connection connection = null;
         String url = "jdbc:postgresql://localhost:5432/users";
         String user = "postgres";
         String password = "Postgresql";
+*/
+        Connection connection = null;
+        String url = "jdbc:postgresql://ec2-54-170-90-26.eu-west-1.compute.amazonaws.com:5432/d9sd8hq32ar6pt?sslmode=require";
+        String user = "mmsapcfmzzfllt";
+        String password = "60fd7eee3c4263a4602eca075bfb3cf70deec3bad10cfce1daf28c2944b713ff";
+
 
         try {
             connection = DriverManager.getConnection(url, user, password);
