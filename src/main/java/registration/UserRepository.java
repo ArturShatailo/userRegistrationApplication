@@ -34,6 +34,25 @@ public class UserRepository implements Crudable<User> {
         return connection;
     }
 
+    /**
+     * <p>
+     *     Creates 'connection' object as an instance of Connection class using getConnection() method.
+     *     Creates 'ps' object as an instance of PreparedStatement class. 'ps' is set as a result of
+     *     prepareStatement method of 'connection' object, with SQL 'insert into' request as a parameter.
+     * </p>
+     * <p>
+     *     Sets parameter for SQL request using set methods and values from fields of received in @param user object,
+     *     instance of User entity class. Process SQL request using executeUpdate method of 'ps' object instance of
+     *     PreparedStatement class and sets returned int value as a 'connectionStatus' variable.
+     *     Connection is closed here.
+     * </p>
+     * <p>
+     *     Catches SQLException and prints it.
+     * </p>
+     *
+     * @param user Object that should be saved as a database record
+     * @return 'connectionStatus' integer variable.
+     */
     @Override
     public int save(User user) {
         int connectionStatus = 0;
@@ -57,6 +76,24 @@ public class UserRepository implements Crudable<User> {
         return connectionStatus;
     }
 
+    /**
+     * <p>
+     *     Creates 'connection' object as an instance of Connection class using getConnection() method.
+     *     Creates 'ps' object as an instance of PreparedStatement class. 'ps' is set as a result of
+     *     prepareStatement method of 'connection' object, with SQL 'update' request as a parameter.
+     * </p>
+     * <p>
+     *     Sets parameter for SQL request using set methods and values from fields of received in @param user object,
+     *     instance of User entity class. Process SQL request using executeUpdate method of 'ps' object instance of
+     *     PreparedStatement class and sets returned int value as a 'connectionStatus' variable.
+     *     Connection is closed here.
+     * </p>
+     * <p>
+     *     Catches SQLException and prints it.
+     * </p>
+     * @param user Object that should be updated
+     * @return 'connectionStatus' integer variable.
+     */
     @Override
     public int update(User user) {
 
@@ -82,6 +119,23 @@ public class UserRepository implements Crudable<User> {
         return connectionStatus;
     }
 
+    /**
+     * <p>
+     *     Inside try-catch construction creates 'connection' object as an instance of Connection class,
+     *     using method getConnection().
+     *     Creates PreparedStatement object with 'delete' SQL request, using prepareStatement() method of
+     *     Connection class with 'connection' object.
+     *     Sets received parameter 'id' as 'id' parameter for SQL request.
+     *     Executes SQL request with executeUpdate method of 'ps' object instance of PreparedStatement class.
+     *     Closes connection here.
+     * </p>
+     * <p>
+     *     Catches SQLException and prints it.
+     * </p>
+     *
+     * @param id column 'id' value as a field 'id' of object that should be deleted from database table
+     * @return 'connectionStatus' integer variable.
+     */
     @Override
     public int delete(int id) {
         int connectionStatus = 0;
@@ -100,6 +154,29 @@ public class UserRepository implements Crudable<User> {
         return connectionStatus;
     }
 
+    /**
+     * <p>
+     *     Creates 'user' object instance of User class.
+     *     Inside try block creates 'connection' object instance of Connection class using
+     *     getConnection() method.
+     *     Creates 'ps' object instance of PreparedStatement class. 'ps' is set as a result of method
+     *     prepareStatement of connection object with SQL 'select' request as a parameter 'sql'.
+     *     Received in 'id' parameter is set as 'id' parameter of SQL request.
+     *     The request is processing using executeQuery method of PreparedStatement 'ps' object. The return of
+     *     executeQuery method is set as 'rs' object instance of ResultSet class.
+     * </p>
+     * <p>
+     *     Call method createObjectByValue() with 'rs' and 'user' objects in parameters to fill 'user' object with
+     *     values from 'rs'.
+     *     Closes connection here.
+     * </p>
+     * <p>
+     *     Catches SQLException and prints it.
+     * </p>
+     *
+     * @param id column 'id' value as a field 'id' of object that should be found in database table
+     * @return created 'user' object instance of User class
+     */
     @Override
     public User getById(int id) {
 
@@ -122,7 +199,31 @@ public class UserRepository implements Crudable<User> {
         return user;
     }
 
-    @Override
+    /**
+     * Finds in database table a record with 'email' column value equals to 'email' String value received in parameter.
+     * Returns object of User class with fields set as values of cells in found table record.
+     * <p>
+     *     Creates 'user' object instance of User class.
+     *     Inside try block creates 'connection' object instance of Connection class using
+     *     getConnection() method.
+     *     Creates 'ps' object instance of PreparedStatement class. 'ps' is set as a result of method
+     *     prepareStatement of connection object with SQL 'select' request as a parameter 'sql'.
+     *     Received in 'email' String parameter is set as 'email' parameter of SQL request.
+     *     The request is processing using executeQuery method of PreparedStatement 'ps' object. The return of
+     *     executeQuery method is set as 'rs' object instance of ResultSet class.
+     * </p>
+     * <p>
+     *     Call method createObjectByValue() with 'rs' and 'user' objects in parameters to fill 'user' object with
+     *     values from 'rs'.
+     *     Closes connection here.
+     * </p>
+     * <p>
+     *     Catches SQLException and prints it.
+     * </p>
+     *
+     * @param email column 'email' value as a field 'email' of object that should be found in database table
+     * @return created 'user' object instance of User class
+     */
     public User getByEmail(String email) {
 
         User user = new User();
@@ -144,6 +245,17 @@ public class UserRepository implements Crudable<User> {
         return user;
     }
 
+    /**
+     * Using next() method checks if there are any record in 'rs' parameter instance of ResultSet.
+     * In case of true, sets fields of received in parameter 'user' object instance of User class as
+     * column items from 'rs' object.
+     *
+     * @param rs ResultSet object from database that includes one row of database table
+     * @param user Object that should be filled out with data
+     * @return User object with set fields
+     * @throws SQLException can be thrown in case of none data in the ResultSet object or absence
+     * of ResultSet object.
+     */
     @Override
     public User createObjectByValue(ResultSet rs, User user) throws SQLException {
         if (rs.next()) {
@@ -157,6 +269,19 @@ public class UserRepository implements Crudable<User> {
         return user;
     }
 
+    /**
+     * Creates List collection 'usersList'.
+     * Inside try block creates Connection object 'connection' using getConnection() method.
+     * Creates PreparedStatement object 'ps' using prepareStatement method of 'connection' object with
+     * SQL request 'select' as a parameter.
+     * Using executeQuery method of PrepareStatement class creates 'rs' object instance of ResultSet class.
+     * Using while loop and next() method of 'rs' object adds new created User objects with data from 'rs' columns
+     * in fields into created 'usersList' List collection.
+     * Closes connection here.
+     * Catches SQLException and prints it.
+     *
+     * @return created List of all User objects created with data received from database table
+     */
     @Override
     public List<User> getAll() {
 

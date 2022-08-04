@@ -1,37 +1,37 @@
 package registration.session;
 
 import registration.CookieFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-
 
 @WebServlet("/logoutServlet")
 public class LogoutServlet extends HttpServlet implements CookieFactory {
     //private static final long serialVersionUID = 1L;
 
     /**
-     *
+     * Invalidates session that is received from HTTPServletRequest object 'req' by getSession() method.
+     * Sets success cookie and redirects to 'login.jsp' page.
      *
      * @param req HttpServletRequest request received by servlet
      * @param resp HttpServletResponse response sent by servlet
-     * @throws IOException can be thrown in case of PrintWriter failure.
+     * @throws IOException can be thrown in case of PrintWriter failure or any input / output requests failure.
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         resp.setContentType("text/html");
-        Cookie[] cookies = req.getCookies();
 
+        /*
+        Cookie[] cookies = req.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){
                 if(cookie.getName().equals("JSESSIONID")){
+                    cookie.setValue("");
                     break;
                 }
             }
-        }
+        }*/
 
         HttpSession session = req.getSession(false);
         if(session != null){

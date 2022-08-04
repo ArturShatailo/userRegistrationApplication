@@ -18,7 +18,7 @@ public class PersonalAreaServlet extends HttpServlet implements InstanceReposito
      * @param resp HttpServletResponse response sent by servlet
      * @throws ServletException Exception in case of servlet error, ErrorHandler servlet should be called
      * but is not created
-     * @throws IOException can be thrown in case of PrintWriter failure.
+     * @throws IOException can be thrown in case of PrintWriter failure or any input / output requests failure.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

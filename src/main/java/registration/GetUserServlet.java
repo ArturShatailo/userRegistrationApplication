@@ -1,9 +1,5 @@
 package registration;
 
-import registration.CookieFactory;
-import registration.InstanceRepository;
-import registration.User;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -17,7 +13,12 @@ public class GetUserServlet extends HttpServlet implements InstanceRepository, C
 
 
     /**
-     *
+     * Gets object from session and cast it into User class. The value from session is set into 'user' object
+     * instance of User class.
+     * If 'user' is not null, creates JSONObject 'obj' and puts into it values of 'user' object fields with
+     * accordingly set fields.
+     * Using PrintWriter object 'out' sends created JSONObject 'obj' object in 'resp'.
+     * In case of 'user' is null, sets 'errorMessage' coolie record and redirects to 'login.jsp' page.
      *
      * @param req HttpServletRequest request received by servlet
      * @param resp HttpServletResponse response sent by servlet
