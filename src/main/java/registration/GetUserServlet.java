@@ -16,6 +16,13 @@ import org.json.JSONObject;
 public class GetUserServlet extends HttpServlet implements InstanceRepository, CookieFactory {
 
 
+    /**
+     *
+     *
+     * @param req HttpServletRequest request received by servlet
+     * @param resp HttpServletResponse response sent by servlet
+     * @throws IOException can be thrown in case of PrintWriter failure.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -31,6 +38,7 @@ public class GetUserServlet extends HttpServlet implements InstanceRepository, C
             obj.put("surname", user.getSurname());
             obj.put("email", user.getEmail());
             obj.put("country", user.getCountry());
+
             PrintWriter out = resp.getWriter();
             out.println(obj);
 

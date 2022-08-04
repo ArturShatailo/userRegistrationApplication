@@ -9,6 +9,13 @@ import java.io.IOException;
 @WebServlet ("/registerUser")
 public class RegisterUserServlet extends HttpServlet implements InstanceRepository, IdIterable, CookieFactory{
 
+    /**
+     *
+     *
+     * @param req HttpServletRequest request received by servlet
+     * @param resp HttpServletResponse response sent by servlet
+     * @throws IOException can be thrown in case of PrintWriter failure.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -15,6 +15,13 @@ public class EditUserServlet extends HttpServlet implements InstanceRepository, 
         doPut(req, resp);
     }
 
+    /**
+     *
+     *
+     * @param req HttpServletRequest request received by servlet
+     * @param resp HttpServletResponse response sent by servlet
+     * @throws IOException can be thrown in case of PrintWriter failure.
+     */
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

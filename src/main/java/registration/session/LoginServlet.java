@@ -9,19 +9,31 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-/**
- * Servlet implementation class LoginServlet
- */
+
 @WebServlet("/loginUser")
 public class LoginServlet extends HttpServlet implements InstanceRepository, CookieFactory {
 
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
 
+    /**
+     *
+     *
+     * @param req HttpServletRequest request received by servlet
+     * @param resp HttpServletResponse response sent by servlet
+     * @throws IOException can be thrown in case of PrintWriter failure.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect("/registration/login.jsp");
     }
 
+    /**
+     *
+     *
+     * @param req HttpServletRequest request received by servlet
+     * @param resp HttpServletResponse response sent by servlet
+     * @throws IOException can be thrown in case of PrintWriter failure.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

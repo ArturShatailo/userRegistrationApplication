@@ -2,11 +2,12 @@
 
 $(document).ready(function(){
 
+    //Calls function to show block with cookies records of success or error messages.
     printCookies();
 
-    //$("#sing-up-button").click(function(){
 
-        /*
+    /*
+    $("#sing-up-button").click(function(){
         $.ajax('registerUser', {
             type: 'POST',  // http method
             data: {
@@ -25,9 +26,7 @@ $(document).ready(function(){
                 //$('p').append('Error' + errorMessage);
             }
         });
-         */
 
-        /*
         $.post("registerUser",
             {
                 name: $("#name").val(),
@@ -41,16 +40,18 @@ $(document).ready(function(){
                 //window.location.href = "login.jsp"
 
             });
-
-
     });
 */
-
 
 
 });
 
 
+/**
+ * Checks if there are any cookie records with name "errorMessage" and "successfulMessage" and
+ * using show() function displays block with text set as cookies values. After 5 seconds, block
+ * with cookies will disappear.
+ */
 function printCookies() {
 
     newCookiePrint("errorMessage");
@@ -63,6 +64,13 @@ function printCookies() {
     }, 5000)
 }
 
+/**
+ * if cookie record with name received in @param 'cookie' is not empty, creates new <p> element inside
+ * html div block with class name 'cookies'. <p> element receives text inside that is equal to
+ * cookie record with name received in @param 'cookie'
+ *
+ * @param cookie name of cookie record that should be checked and displayed to user.
+ */
 function newCookiePrint(cookie) {
     if(getCookie(cookie).length > 0){
         const newCookie = document.createElement("p");
@@ -72,7 +80,12 @@ function newCookiePrint(cookie) {
     }
 }
 
-
+/**
+ * Returns value of cookie record by name.
+ *
+ * @param cname name of cookie record to get value from
+ * @returns {string} value of cookie record with @param 'cname' name
+ */
 function getCookie(cname) {
     let name = cname + "=";
     let ca = document.cookie.split(';');

@@ -6,6 +6,13 @@ import java.util.List;
 
 public class UserRepository implements Crudable<User> {
 
+    /**
+     * Creates database connection constants and using DriverManager and method getConnection
+     * connects to the clarified in constants database address with password and username.
+     * SQLException is caught in case of database connection is failed.
+     *
+     * @return connection instance of class Connection
+     */
     public static Connection getConnection() {
 
         Connection connection = null;
