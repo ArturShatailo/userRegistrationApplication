@@ -68,11 +68,11 @@ public class LoginServlet extends HttpServlet implements InstanceRepository, Coo
                 resp.sendRedirect("/registration/personal-area");
             } else {
                 setCookie(resp, "errorMessage", "Either username or password is wrong", 5);
-                resp.sendRedirect("/registration/login.jsp");
+                resp.sendRedirect("/login.jsp");
             }
         } else {
             setCookie(resp, "errorMessage", "This email is not registered", 5);
-            resp.sendRedirect("/registration/login.jsp");
+            resp.sendRedirect("/login.jsp");
         }
     }
 

@@ -50,15 +50,15 @@ public class EditUserServlet extends HttpServlet implements InstanceRepository, 
             status = ur.update(user);
         } else {
             setCookie(resp, "errorMessage", "You are not logged in", 5);
-            resp.sendRedirect("/registration/login.jsp");
+            resp.sendRedirect("/login.jsp");
         }
 
         if(status > 0) {
             setCookie(resp, "successfulMessage", "Information changed", 5);
-            resp.sendRedirect("/registration/personal-area.jsp");
+            resp.sendRedirect("/personal-area.jsp");
         } else {
             setCookie(resp, "errorMessage", "Unable to update your information", 5);
-            resp.sendRedirect("/registration/personal-area.jsp");
+            resp.sendRedirect("/personal-area.jsp");
         }
 
     }
