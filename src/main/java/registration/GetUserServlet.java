@@ -42,6 +42,7 @@ public class GetUserServlet extends HttpServlet implements InstanceRepository, C
 
             PrintWriter out = resp.getWriter();
             out.println(obj);
+            out.close();
 
         } else {
             setCookie(resp, "errorMessage", "Sorry, unable to login", 5);

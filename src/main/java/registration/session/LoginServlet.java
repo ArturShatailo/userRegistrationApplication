@@ -56,6 +56,7 @@ public class LoginServlet extends HttpServlet implements InstanceRepository, Coo
         User user = ur.getByEmail(email);
 
         if(user.getEmail() != null) {
+
             if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);

@@ -100,3 +100,10 @@ function getCookie(cname) {
     }
     return "";
 }
+
+function setCookie(name, value, time) {
+    const d = new Date();
+    d.setTime(d.getTime() + (time));
+    let expires = "expires="+d.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
