@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet implements InstanceRepository, Coo
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/registration/login.jsp");
+        resp.sendRedirect("/login.jsp");
     }
 
     /**
