@@ -14,6 +14,10 @@ $(document).ready(function() {
         //editUser();
     });
 
+    $(".close-pop-up").click(function(){
+        $(".edit-user-pop-up").css("display", "none");
+    });
+
 });
 
 /**

@@ -9,11 +9,21 @@ a {
   text-decoration: none;
 }
 
+textarea,
+input[type=text],
+input[type=button],
+input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
 body {
   background-image: url("images/pexels-simon-berger-1323550.jpg");
   background-size: cover;
   background-position: center center;
   backdrop-filter: brightness(38%);
+  -webkit-backdrop-filter: brightness(38%);
+  -moz-backdrop-filter: brightness(38%);
 }
 
 h1 {
@@ -79,6 +89,16 @@ header {
   width: 510px;
   height: 400px;
   padding: 40px 40px;
+  position: relative;
+}
+.edit-user-pop-up form .close-pop-up {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  color: #e5e837;
+  cursor: pointer;
 }
 .edit-user-pop-up form .form-group-wrapper {
   display: flex;

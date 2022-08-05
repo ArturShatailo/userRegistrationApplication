@@ -15,7 +15,7 @@
   <script src="<c:url value="/resources/script/jquery-3.6.0.min.js" />"></script>
   <script src="<c:url value="/resources/script/script-cookies.js" />"></script>
   <script src="<c:url value="/resources/script/script-pa.js" />"></script>
-  <title>Login page</title>
+  <title>Personal area</title>
 </head>
 <body>
 
@@ -30,6 +30,7 @@
 
 <section class="edit-user-pop-up">
   <form class="form register-form" action="editUserServlet" method="post">
+    <div class="close-pop-up">&#10006</div>
       <div class="form-group field">
         <input type="text" class="form-field" placeholder="Name" name="name" id='name' required />
         <label for="name" class="form-label">Name</label>

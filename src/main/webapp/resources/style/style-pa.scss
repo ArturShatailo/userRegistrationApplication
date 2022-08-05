@@ -11,11 +11,21 @@ a{
   text-decoration: none;
 }
 
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
 body{
   background-image: url("images/pexels-simon-berger-1323550.jpg");
   background-size: cover;
   background-position: center center;
   backdrop-filter: brightness(38%);
+  -webkit-backdrop-filter: brightness(38%);
+  -moz-backdrop-filter: brightness(38%);
 }
 
 @mixin displayFlex($direction, $justify, $align) {
@@ -59,7 +69,11 @@ header{
   form{
 
     @include displayFlex(column, space-between, center); background-color: $black; box-shadow: $primary 0 0 10px;
-    width: 510px; height: 400px; padding: 40px 40px;
+    width: 510px; height: 400px; padding: 40px 40px; position: relative;
+
+    .close-pop-up{
+      position: absolute; top: 5px; right: 5px; width: 20px; height: 20px; color: $primary; cursor: pointer;
+    }
 
     .form-group-wrapper{
       @include displayFlex(row, space-between, center); width: 100%; position: relative; padding: 15px 0 0;

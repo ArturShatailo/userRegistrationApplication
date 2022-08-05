@@ -9,11 +9,21 @@ a {
   text-decoration: none;
 }
 
+textarea,
+input[type=text],
+input[type=button],
+input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
 body {
   background-image: url("images/pexels-simon-berger-1323550.jpg");
   background-size: cover;
   background-position: center center;
   backdrop-filter: brightness(38%);
+  -webkit-backdrop-filter: brightness(38%);
+  -moz-backdrop-filter: brightness(38%);
 }
 
 h1 {
