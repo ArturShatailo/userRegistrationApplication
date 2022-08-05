@@ -46,7 +46,7 @@ public class GetUserServlet extends HttpServlet implements InstanceRepository, C
 
         } else {
             setCookie(resp, "errorMessage", "Sorry, unable to login", 5);
-            resp.sendRedirect("/registration/login.jsp");
+            resp.sendRedirect("/login.jsp");
         }
 
     }

@@ -39,7 +39,7 @@ public class LogoutServlet extends HttpServlet implements CookieFactory {
         }
 
         setCookie(resp, "successfulMessage", "Logged out", 5);
-        resp.sendRedirect("/registration/login.jsp");
+        resp.sendRedirect("/login.jsp");
     }
 
     @Override

@@ -24,9 +24,8 @@ public class LoginAdminServlet extends HttpServlet implements InstanceRepository
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/registration/admin.jsp");
+        resp.sendRedirect("/admin.jsp");
     }
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,7 +36,10 @@ public class LoginAdminServlet extends HttpServlet implements InstanceRepository
 
         if(email.equals("admin@admin.com") && password.equals("admin@admin.com")) {
             setCookie(resp, "successfulMessage", "Welcome to ADMIN panel", 5);
-            resp.sendRedirect("/registration/admin.jsp");
+            resp.sendRedirect("/admin.jsp");
+        } else {
+            setCookie(resp, "errorMessage", "You are not an admin user", 5);
+            resp.sendRedirect("/login-admin.jsp");
         }
     }
 

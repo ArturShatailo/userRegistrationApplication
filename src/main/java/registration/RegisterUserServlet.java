@@ -82,7 +82,7 @@ public class RegisterUserServlet extends HttpServlet implements InstanceReposito
 
             if(status > 0) {
                 setCookie(resp, "successfulMessage", "Registered successfully", 5);
-                resp.sendRedirect("/registration/loginUser");
+                resp.sendRedirect("/loginUser");
             } else {
                 setCookie(resp, "errorMessage", "Sorry, unable to create new record", 5);
             }

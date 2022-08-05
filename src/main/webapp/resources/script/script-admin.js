@@ -18,7 +18,7 @@ $(document).ready(function() {
 });
 
 function showSearch(val) {
-    $.ajax('/registration/get-user-byEmail', {
+    $.ajax('/get-user-byEmail', {
         type: 'GET',  // http method
         data: {
             email: val
@@ -37,7 +37,7 @@ function showSearch(val) {
 
 
 function deleteUser(id) {
-    $.ajax('/registration/deleteServlet', {
+    $.ajax('/deleteServlet', {
         type: 'GET',  // http method
         data: {
             id: id // data to submit
@@ -55,7 +55,7 @@ function deleteUser(id) {
 }
 
 function getUsersData() {
-    $.ajax('/registration/get-users', {
+    $.ajax('/get-users', {
         type: 'GET',  // http method
         data: {},
         dataType: "json", // data to submit
