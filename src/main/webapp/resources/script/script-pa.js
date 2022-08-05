@@ -14,8 +14,6 @@ $(document).ready(function() {
         //editUser();
     });
 
-
-
 });
 
 /**
