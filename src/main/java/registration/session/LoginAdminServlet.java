@@ -24,7 +24,7 @@ public class LoginAdminServlet extends HttpServlet implements InstanceRepository
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/admin.jsp");
+        resp.sendRedirect("/login-admin.jsp");
     }
 
     @Override
@@ -35,8 +35,18 @@ public class LoginAdminServlet extends HttpServlet implements InstanceRepository
         String password = req.getParameter("password");
 
         if(email.equals("admin@admin.com") && password.equals("admin@admin.com")) {
+
+            User admin = new User("Admin", "Admin", null, email, password);
+            HttpSession session = req.getSession();
+            session.setAttribute("admin", admin);
+
+            //setting session to expiry in 30 mins
+            session.setMaxInactiveInterval(30 * 60);
+
+            setCookie(resp, "admin", email, 30 * 60);
+
             setCookie(resp, "successfulMessage", "Welcome to ADMIN panel", 5);
-            resp.sendRedirect("/admin.jsp");
+            resp.sendRedirect("/admin-area");
         } else {
             setCookie(resp, "errorMessage", "You are not an admin user", 5);
             resp.sendRedirect("/login-admin.jsp");
