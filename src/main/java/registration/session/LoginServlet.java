@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet implements InstanceRepository, Coo
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/registration/login.jsp");
+        resp.sendRedirect("/login.jsp");
     }
 
     /**
@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet implements InstanceRepository, Coo
                 setCookie(resp, "user", email, 30 * 60);
                 setCookie(resp, "successfulMessage", "Nice to see you and welcome back, "+ user.getName(), 5);
 
-                resp.sendRedirect("/registration/personal-area");
+                resp.sendRedirect("/personal-area");
             } else {
                 setCookie(resp, "errorMessage", "Either username or password is wrong", 5);
                 resp.sendRedirect("/login.jsp");

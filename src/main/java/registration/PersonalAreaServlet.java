@@ -27,10 +27,10 @@ public class PersonalAreaServlet extends HttpServlet implements InstanceReposito
         User user = (User) session.getAttribute("user");
 
         if(user != null){
-            resp.sendRedirect("/registration/personal-area.jsp");
+            resp.sendRedirect("/personal-area.jsp");
         } else {
             setCookie(resp, "errorMessage", "Sorry, unable to login", 5);
-            resp.sendRedirect("/registration/login.jsp");
+            resp.sendRedirect("/login.jsp");
         }
 
 /*
