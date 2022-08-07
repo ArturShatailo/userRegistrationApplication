@@ -37,7 +37,7 @@ public class AuthenticationFilter implements Filter, CookieFactory {
                 || uri.endsWith("/deleteServlet")
                 || uri.endsWith("/editUserServlet")
                 || uri.endsWith("/get-user")
-                || uri.endsWith("login-admin.jsp")
+                //|| uri.endsWith("login-admin.jsp")
                 || uri.endsWith("/personal-area.jsp")
                 || uri.endsWith("/personal-area")
                 || uri.endsWith("/get-user-byEmail")
