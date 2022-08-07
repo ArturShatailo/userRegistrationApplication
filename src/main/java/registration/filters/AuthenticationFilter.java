@@ -32,18 +32,23 @@ public class AuthenticationFilter implements Filter, CookieFactory {
         User sessionObject = (User) session.getAttribute("user");
         User sessionObjectAdmin = (User) session.getAttribute("admin");
 
-        if (sessionObject == null && sessionObjectAdmin == null && !(uri.endsWith("/home.jsp")
-                || uri.endsWith("/loginUser")
-                || uri.endsWith("/login.jsp")
-                || uri.endsWith("/registerUser")
-                || uri.endsWith("/registration.jsp")
-                || uri.endsWith(".com")
+        if ((sessionObject == null || sessionObjectAdmin == null) && (uri.endsWith("/admin-area")
+                || uri.endsWith("/loginAdmin")
+                || uri.endsWith("/deleteServlet")
+                || uri.endsWith("/editUserServlet")
+                || uri.endsWith("/get-user")
                 || uri.endsWith("login-admin.jsp")
-                || uri.endsWith("/loginAdmin"))) {
+                || uri.endsWith("/personal-area.jsp")
+                || uri.endsWith("/personal-area")
+                || uri.endsWith("/get-user-byEmail")
+                || uri.endsWith("/viewByIDServlet")
+                || uri.endsWith("/get-users")
+                || uri.endsWith("/admin.jsp"))) {
 
             this.context.log("<<< Unauthorized access request");
             setCookie(res, "errorMessage", "No access", 5);
             res.sendRedirect("/login.jsp");
+
         } else {
             chain.doFilter(request, response);
         }
