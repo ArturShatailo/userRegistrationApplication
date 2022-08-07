@@ -34,7 +34,8 @@ public class AuthenticationFilter implements Filter, CookieFactory {
                 || uri.endsWith("/loginUser")
                 || uri.endsWith("/login.jsp")
                 || uri.endsWith("/registerUser")
-                || uri.endsWith("/registration.jsp"))) {
+                || uri.endsWith("/registration.jsp")
+                || uri.endsWith(".com"))) {
             this.context.log("<<< Unauthorized access request");
             setCookie(res, "errorMessage", "No access", 5);
             res.sendRedirect("/login.jsp");
