@@ -29,29 +29,43 @@ public class AuthenticationFilter implements Filter, CookieFactory {
         String uri = req.getRequestURI();
 
         HttpSession session = req.getSession();
-        User sessionObject = (User) session.getAttribute("user");
-        User sessionObjectAdmin = (User) session.getAttribute("admin");
+        User user = (User) session.getAttribute("user");
+        User admin = (User) session.getAttribute("admin");
 
-        if ((sessionObject == null || sessionObjectAdmin == null) && (uri.endsWith("/admin-area")
-                || uri.endsWith("/loginAdmin")
+        if(adminPermission(admin, uri)) noAccessRedirect(res);
+        else
+            if (userPermission(user, uri)) noAccessRedirect(res);
+            else
+                chain.doFilter(request, response);
+
+    }
+
+    private void noAccessRedirect(HttpServletResponse res) {
+        this.context.log("<<< Unauthorized access request");
+        setCookie(res, "errorMessage", "No access", 5);
+        try {
+            res.sendRedirect("/login.jsp");
+        } catch (IOException e) {
+            setCookie(res, "errorMessage", "Cannot redirect", 5);
+        }
+    }
+
+    private boolean userPermission(User u, String uri) {
+        return u == null && (uri.endsWith("/personal-area.jsp")
+                || uri.endsWith("/personal-area")
+                || uri.endsWith("/get-user"));
+    }
+
+    private boolean adminPermission(User u, String uri) {
+        return u == null && (uri.endsWith("/admin-area")
                 || uri.endsWith("/deleteServlet")
                 || uri.endsWith("/editUserServlet")
                 || uri.endsWith("/get-user")
                 || uri.endsWith("login-admin.jsp")
-                || uri.endsWith("/personal-area.jsp")
-                || uri.endsWith("/personal-area")
                 || uri.endsWith("/get-user-byEmail")
                 || uri.endsWith("/viewByIDServlet")
                 || uri.endsWith("/get-users")
-                || uri.endsWith("/admin.jsp"))) {
-
-            this.context.log("<<< Unauthorized access request");
-            setCookie(res, "errorMessage", "No access", 5);
-            res.sendRedirect("/login.jsp");
-
-        } else {
-            chain.doFilter(request, response);
-        }
+                || uri.endsWith("/admin.jsp"));
     }
 
     @Override
