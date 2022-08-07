@@ -1,4 +1,4 @@
-/*package registration.filters;
+package registration.filters;
 
 import registration.CookieFactory;
 
@@ -28,20 +28,16 @@ public class AuthenticationFilter implements Filter, CookieFactory {
 
         String uri = req.getRequestURI();
 
-        this.context.log("Requested Resource::http://localhost:8080" + uri);
-
         HttpSession session = req.getSession(false);
 
-        if (session == null && !(uri.endsWith("/personal-area")
-                || uri.endsWith("/personal-area.jsp")
-                || uri.endsWith("/get-user")
-                || uri.endsWith("/viewByIDServlet")
-                || uri.endsWith("/deleteServlet"))) {
+        if (session == null && !(uri.endsWith("/home.jsp")
+                || uri.endsWith("/loginUser")
+                || uri.endsWith("/login.jsp")
+                || uri.endsWith("/registerUser")
+                || uri.endsWith("/registration.jsp"))) {
             this.context.log("<<< Unauthorized access request");
             setCookie(res, "errorMessage", "No access", 5);
-            res.sendRedirect("/registration/login.jsp");
-            //PrintWriter out = res.getWriter();
-            //out.println("No access!!!");
+            res.sendRedirect("/login.jsp");
         } else {
             chain.doFilter(request, response);
         }
@@ -54,4 +50,3 @@ public class AuthenticationFilter implements Filter, CookieFactory {
         R.addCookie(cookie);
     }
 }
-*/
