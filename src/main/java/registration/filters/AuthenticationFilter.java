@@ -27,7 +27,7 @@ public class AuthenticationFilter implements Filter, CookieFactory {
 
         String uri = req.getRequestURI();
 
-        User sessionObject = (User) req.getSession();
+        User sessionObject = (User) req.getSession(false);
 
         if (sessionObject == null && !(uri.endsWith("/home.jsp")
                 || uri.endsWith("/loginUser")
