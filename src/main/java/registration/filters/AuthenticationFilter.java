@@ -1,15 +1,14 @@
 package registration.filters;
 
 import registration.CookieFactory;
+import registration.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebFilter("/*")
 public class AuthenticationFilter implements Filter, CookieFactory {
@@ -28,9 +27,9 @@ public class AuthenticationFilter implements Filter, CookieFactory {
 
         String uri = req.getRequestURI();
 
-        HttpSession session = req.getSession(false);
+        User sessionObject = (User) req.getSession();
 
-        if (session == null && !(uri.endsWith("/home.jsp")
+        if (sessionObject.getEmail().equals(null) && !(uri.endsWith("/home.jsp")
                 || uri.endsWith("/loginUser")
                 || uri.endsWith("/login.jsp")
                 || uri.endsWith("/registerUser")
