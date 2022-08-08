@@ -53,14 +53,13 @@ public class AuthenticationFilter implements Filter, CookieFactory {
     private boolean userPermission(User u, String uri) {
         return u == null && (uri.endsWith("/personal-area.jsp")
                 || uri.endsWith("/personal-area")
-                || uri.endsWith("/get-user"));
+                || uri.endsWith("/get-user")
+                || uri.endsWith("/editUserServlet"));
     }
 
     private boolean adminPermission(User u, String uri) {
         return u == null && (uri.endsWith("/admin-area")
                 || uri.endsWith("/deleteServlet")
-                || uri.endsWith("/editUserServlet")
-                || uri.endsWith("/get-user")
                 || uri.endsWith("/get-user-byEmail")
                 || uri.endsWith("/viewByIDServlet")
                 || uri.endsWith("/get-users")
