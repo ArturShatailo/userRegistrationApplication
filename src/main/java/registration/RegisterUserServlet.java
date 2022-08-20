@@ -1,10 +1,16 @@
 package registration;
 
+import lombok.extern.slf4j.Slf4j;
+import registration.Interceptors.Logged;
+import registration.entity.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+@Logged
+@Slf4j
 @WebServlet ("/registerUser")
 public class RegisterUserServlet extends HttpServlet implements InstanceRepository, IdIterable, CookieFactory{
 
@@ -74,6 +80,7 @@ public class RegisterUserServlet extends HttpServlet implements InstanceReposito
         //In case of 'v' variable that is set as functional interface return is true
         if (v.formValidation()) {
 
+            log.info("Try to validate registration form in servlet {}", this.getServletName());
             //New User object creating with data from request (form).
             User user = new User(name, surname, email, country, password);
 
@@ -81,12 +88,15 @@ public class RegisterUserServlet extends HttpServlet implements InstanceReposito
             int status = ur.save(user);
 
             if(status > 0) {
+                log.info("User {} is registered successfully in servlet {}", user.getEmail(), this.getServletName());
                 setCookie(resp, "successfulMessage", "Registered successfully", 5);
                 resp.sendRedirect("/loginUser");
             } else {
+                log.info("Unable to create new record for user {} in servlet {}", user.getEmail(), this.getServletName());
                 setCookie(resp, "errorMessage", "Sorry, unable to create new record", 5);
             }
         } else {
+            log.error("Validation of registration form is failed in servlet {}", this.getServletName());
             getServletContext().getRequestDispatcher("/registration.jsp").forward(req, resp);
         }
     }

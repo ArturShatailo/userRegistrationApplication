@@ -1,7 +1,7 @@
 package registration.filters;
 
 import registration.CookieFactory;
-import registration.User;
+import registration.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

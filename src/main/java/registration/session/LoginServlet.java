@@ -1,17 +1,21 @@
 package registration.session;
 
+import lombok.extern.slf4j.Slf4j;
 import registration.CookieFactory;
 import registration.InstanceRepository;
-import registration.User;
+import registration.Interceptors.Logged;
+import registration.Loggable;
+import registration.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-
+@Logged
+@Slf4j
 @WebServlet("/loginUser")
-public class LoginServlet extends HttpServlet implements InstanceRepository, CookieFactory {
+public class LoginServlet extends HttpServlet implements InstanceRepository, CookieFactory, Loggable {
 
     //private static final long serialVersionUID = 1L;
 
@@ -63,15 +67,23 @@ public class LoginServlet extends HttpServlet implements InstanceRepository, Coo
                 //setting session to expiry in 30 mins
                 session.setMaxInactiveInterval(30 * 60);
 
+                log.info("User {} is logged in successfully", email);
+
                 setCookie(resp, "user", email, 30 * 60);
                 setCookie(resp, "successfulMessage", "Nice to see you and welcome back, "+ user.getName(), 5);
 
                 resp.sendRedirect("/personal-area");
             } else {
+
+                log.info("User inputted wrong password for email: {}", email);
+
                 setCookie(resp, "errorMessage", "Either username or password is wrong", 5);
                 resp.sendRedirect("/login.jsp");
             }
         } else {
+
+            log.info("User inputted wrong unregistered email: {}", email);
+
             setCookie(resp, "errorMessage", "This email is not registered", 5);
             resp.sendRedirect("/login.jsp");
         }

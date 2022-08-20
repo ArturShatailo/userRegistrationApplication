@@ -1,5 +1,7 @@
 package registration;
 
+import registration.entity.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -32,7 +34,6 @@ public class AdminAreaServlet extends HttpServlet implements InstanceRepository,
             setCookie(resp, "errorMessage", "Sorry, unable to login", 5);
             resp.sendRedirect("/login-admin.jsp");
         }
-
     }
 
     @Override

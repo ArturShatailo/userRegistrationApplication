@@ -1,6 +1,10 @@
 package registration;
 
+import lombok.Cleanup;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
+import registration.Interceptors.Logged;
+import registration.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +13,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+@Logged
+@Slf4j
 @WebServlet("/get-users")
 public class ViewServlet extends HttpServlet implements InstanceRepository, CookieFactory{
 
@@ -19,6 +25,7 @@ public class ViewServlet extends HttpServlet implements InstanceRepository, Cook
         List<User> lu = ur.getAll();
 
         //if(user != null && lu != null){
+        log.info("Try to get all users in servlet {}", this.getServletName());
 
             resp.setContentType("application/json");
             JSONObject obj = new JSONObject();
@@ -36,15 +43,14 @@ public class ViewServlet extends HttpServlet implements InstanceRepository, Cook
                 counter++;
             }
 
-            PrintWriter out = resp.getWriter();
+            @Cleanup PrintWriter out = resp.getWriter();
             out.print(obj);
-            out.close();
+            //out.close();
 
         //} else {
             //setCookie(resp, "errorMessage", "Sorry, unable to upload data", 5);
             //resp.sendRedirect("/registration/login.jsp");
         //}
-
     }
 
     @Override

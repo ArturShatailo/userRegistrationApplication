@@ -1,11 +1,17 @@
 package registration.session;
 
+import lombok.extern.slf4j.Slf4j;
 import registration.CookieFactory;
+import registration.Interceptors.Logged;
+import registration.entity.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+@Logged
+@Slf4j
 @WebServlet("/logoutServlet")
 public class LogoutServlet extends HttpServlet implements CookieFactory {
     //private static final long serialVersionUID = 1L;
@@ -21,21 +27,16 @@ public class LogoutServlet extends HttpServlet implements CookieFactory {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         resp.setContentType("text/html");
-
-        /*
-        Cookie[] cookies = req.getCookies();
-        if(cookies != null){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals("JSESSIONID")){
-                    cookie.setValue("");
-                    break;
-                }
-            }
-        }*/
-
         HttpSession session = req.getSession(false);
+
         if(session != null){
+
+            User user = (User) session.getAttribute("user");
+            log.info("User {} successfully logged out by servlet: {}", user.getEmail(),  this.getServletName());
+
             session.invalidate();
+        } else {
+            log.info("User is trying to logging out but session is null by servlet: {}",  this.getServletName());
         }
 
         setCookie(resp, "successfulMessage", "Logged out", 5);

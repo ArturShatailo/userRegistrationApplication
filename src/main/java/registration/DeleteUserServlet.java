@@ -1,5 +1,8 @@
 package registration;
 
+import lombok.extern.slf4j.Slf4j;
+import registration.Interceptors.Logged;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -9,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@Logged
+@Slf4j
 @WebServlet("/deleteServlet")
 public class DeleteUserServlet extends HttpServlet implements InstanceRepository, IdIterable, CookieFactory {
 
@@ -34,16 +39,21 @@ public class DeleteUserServlet extends HttpServlet implements InstanceRepository
             //calls method that returns "id" value from 'request' HttpServletRequest object
             id = getID(req);
 
+            log.info("Try to delete user with id: {} by servlet {}", id, this.getServletName());
+
             //Call delete method of UserRepository class object.
             //Method is implemented from Crudable.
             int status = ur.delete(id);
 
             if (status > 0) {
+                log.info("User with id {} is deleted by servlet {}",  id, this.getServletName());
                 setCookie(resp, "successfulMessage", "Record removed successfully!", 5);
             } else {
+                log.error("User with id {} cannot be deleted by servlet {}",  id, this.getServletName());
                 setCookie(resp, "errorMessage", "Unable to remove record", 5);
             }
         } catch (NumberFormatException npe) {
+            log.error("User cannot be deleted by servlet {}", this.getServletName(), npe);
             setCookie(resp, "errorMessage", "Unable to remove record", 5);
         }
     }
