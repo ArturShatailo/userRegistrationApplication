@@ -3,7 +3,6 @@ package registration.repository;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import registration.Crudable;
-import registration.InstanceRepository;
 import registration.Interceptors.Logged;
 import registration.Loggable;
 import registration.Numbers;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Logged
 @Slf4j
-public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, Numbers {
+public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, Numbers, CurrencyExchange {
 
 
     public int createWalletsForUser(User user) {
@@ -142,4 +141,96 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
         }
         return T;
     }
+    @Logged
+    public int transferFunds(Wallet fromWallet, Wallet toWallet, String amount) {
+
+        //Loggable interface method
+        toLogStartOfMethod("transferFunds()", this.getClass().getName());
+
+        Double amountValue = Double.parseDouble(amount);
+        double argument = defineArgument(fromWallet.getCurrency(), toWallet.getCurrency());
+        double newBalanceFrom = fromWallet.getBalance() - amountValue;
+        double newBalanceTo = toWallet.getBalance() + (amountValue * argument);
+
+        return makeTransaction(newBalanceFrom, newBalanceTo,
+                    fromWallet.getWallet_number(), toWallet.getWallet_number());
+    }
+
+    @Logged
+    private int makeTransaction(double newBalanceFrom, double newBalanceTo, String wallet_number_from, String wallet_number_to) {
+        toLogStartOfMethod("makeTransaction()", this.getClass().getName());
+
+        int connectionStatus = 0;
+
+        try {
+            @Cleanup Connection connection = getConnection();
+            //String sql = "delete from users where id=?";
+            String sql = "update wallets set balance=? where wallet_number=?";
+            //Loggable class method
+            toLogStartSqlRequest("makeFromTransaction()", sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setDouble(1, newBalanceFrom);
+            ps.setString(2, wallet_number_from);
+
+            PreparedStatement ps1 = connection.prepareStatement(sql);
+            ps1.setDouble(1, newBalanceTo);
+            ps1.setString(2, wallet_number_to);
+
+            connectionStatus = ps.executeUpdate();
+            connectionStatus = ps1.executeUpdate();
+
+            //Loggable class method
+            toLogConnectionStatus("makeFromTransaction()", connectionStatus);
+
+        } catch (SQLException sqlException) {
+            //Loggable class method
+            toLogSqlException("makeFromTransaction()", sqlException);
+            //sqlException.printStackTrace();
+
+        }
+        return connectionStatus;
+
+    }
+
+    private double defineArgument(String currencyF, String currencyT) {
+
+        if(currencyF.equals(currencyT)) return 1;
+        if(currencyF.equals("USD")) return usd_eur;
+        else return eur_usd;
+
+    }
+
+    public Wallet getByNumber(String number) {
+
+        //Loggable interface method
+        toLogStartOfMethod("getByNumber()", this.getClass().getName());
+
+        Wallet wallet = new Wallet();
+
+        try {
+            @Cleanup Connection connection = getConnection();
+
+            String sql = "select * from wallets where wallet_number=?";
+
+            //Loggable class method
+            toLogStartSqlRequest("getByNumber()", sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, number);
+            ResultSet rs = ps.executeQuery();
+
+            wallet = createObjectByValue(rs, wallet);
+
+        } catch (SQLException sqlException) {
+            //Loggable class method
+            toLogSqlException("getByNumber()", sqlException);
+            //sqlException.printStackTrace();
+        }
+
+        return wallet;
+
+    }
+
+
 }

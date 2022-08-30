@@ -4,9 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import registration.CookieFactory;
 import registration.InstanceRepository;
 import registration.Interceptors.Logged;
+import registration.Validable;
 import registration.entity.TransferRequest;
 import registration.entity.User;
+import registration.entity.Wallet;
 import registration.repository.TransferRequestRepository;
+import registration.repository.WalletRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +27,7 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
 
     TransferRequestRepository transferRequestRepository = new TransferRequestRepository();
 
+    WalletRepository walletRepository = new WalletRepository();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,19 +37,60 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
         String from = req.getParameter("from");
         String to = req.getParameter("toWallet");
         User user = (User) req.getSession().getAttribute("user");
-        String fromEmail = null;
 
-        if (user != null) fromEmail = user.getEmail();
+        Wallet toWallet = getWalletOfUser(from, resp, req);
+        Wallet fromWallet = getWalletOfUser(to, resp, req);
 
-        //validation
 
-        if(validation()) {
+        Validable v = () -> {
 
-            TransferRequest transferRequest = new TransferRequest(from, fromEmail, to, amount, new Date().getTime(), "processed");
+            double amountValue;
+
+            try {
+                amountValue = Double.parseDouble(amount);
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+                setCookie(resp, "errorMessage", "Enter only numbers in amount field please", 5);
+                return false;
+            }
+
+            //Checks if any or all fields is/are empty
+            if(from.equals("") || to.equals("") || amount.equals("")){
+                setCookie(resp, "errorMessage", "Empty fields are not allowed", 5);
+                return false;
+            }
+
+            if(amountValue <= 0.0){
+                setCookie(resp, "errorMessage", "Negative or zero amount", 5);
+                return false;
+            }
+
+            if(fromWallet != null && toWallet != null){
+                if(!fromWallet.getOwner().equals(user.getEmail())){
+                    setCookie(resp, "errorMessage", "Wrong wallet", 5);
+                    return false;
+                }
+            } else {
+                setCookie(resp, "errorMessage", "Wrong wallet", 5);
+                return false;
+            }
+
+            if(fromWallet.getBalance() < amountValue) {
+                setCookie(resp, "errorMessage", "Not enough money", 5);
+                return false;
+            }
+
+            return true;
+        };
+
+
+        if(v.formValidation()) {
+
+            TransferRequest transferRequest = new TransferRequest(from, fromWallet.getOwner(), to, amount, new Date().getTime(), "processed");
             int statusRequest = transferRequestRepository.save(transferRequest);
 
             if (statusRequest > 0) {
-                int statusTransfer = ur.transferFunds(transferRequest);
+                int statusTransfer = walletRepository.transferFunds(fromWallet, toWallet, amount);
                 if (statusTransfer > 0) {
                     setCookie(resp, "successfulMessage", "Request processed successfully", 5);
                     getServletContext().getRequestDispatcher("/funds.jsp").forward(req, resp);
@@ -59,19 +104,25 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
                 setCookie(resp, "errorMessage", "Sorry, unable to create new request", 5);
                 getServletContext().getRequestDispatcher("/registration.jsp").forward(req, resp);
             }
-
+        } else {
+            log.error("Validation of transfer form is failed in servlet {}", this.getServletName());
+            getServletContext().getRequestDispatcher("/funds.jsp").forward(req, resp);
         }
-
     }
 
-    private boolean validation() {
+    private Wallet getWalletOfUser(String walletNumber, HttpServletResponse resp, HttpServletRequest req) throws ServletException, IOException {
 
+        Wallet wallet = null;
 
-/* if email is null
-        setCookie(resp, "errorMessage", "Your login session is over", 5);
-        getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
-*/
-        return true;
+        try {
+            wallet = walletRepository.getByNumber(walletNumber);
+        } catch (Exception e) {
+            log.info("unable to find wallet {}", walletNumber);
+            setCookie(resp, "errorMessage", "Unable to find wallet", 5);
+            getServletContext().getRequestDispatcher("/funds.jsp").forward(req, resp);
+        }
+
+        return wallet;
     }
 
     @Override
@@ -80,4 +131,5 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
         cookie.setMaxAge(d);
         R.addCookie(cookie);
     }
+
 }

@@ -7,6 +7,7 @@ import registration.Interceptors.Logged;
 import registration.Loggable;
 import registration.entity.TransferRequest;
 import registration.entity.User;
+import registration.entity.Wallet;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -437,9 +438,4 @@ public class UserRepository implements Crudable<User>, Loggable, Connected {
     }
 
 
-    public int transferFunds(TransferRequest transferRequest) {
-
-        return 1;
-
-    }
 }
