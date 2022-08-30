@@ -12,12 +12,17 @@
 <head>
   <link href="<c:url value="/resources/style/style-c-m.css" />" rel="stylesheet">
   <link href="<c:url value="/resources/style/style-pa.css" />" rel="stylesheet">
+  <link href="<c:url value="/resources/style/style-menu.css" />" rel="stylesheet">
   <script src="<c:url value="/resources/script/jquery-3.6.0.min.js" />"></script>
   <script src="<c:url value="/resources/script/script-cookies.js" />"></script>
   <script src="<c:url value="/resources/script/script-pa.js" />"></script>
   <title>Personal area</title>
 </head>
 <body>
+
+<script>
+  jQuery(".pa-page-menu").addClass("active-menu-link");
+</script>
 
 <header>
 
@@ -27,8 +32,8 @@
 
   <nav class="personal-area-menu">
     <div class="personal-area-menu-list">
-      <a class="menu-button" href="funds.jsp"></a>
-      <a class="menu-button" href="personal-area.jsp"></a>
+      <a class="menu-button funds-page-menu" href="funds.jsp"></a>
+      <a class="menu-button pa-page-menu" href="personal-area.jsp"></a>
     </div>
   </nav>
   

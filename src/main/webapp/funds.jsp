@@ -11,13 +11,18 @@
 <html>
 <head>
   <link href="<c:url value="/resources/style/style-c-m.css" />" rel="stylesheet">
-  <link href="<c:url value="/resources/style/style-pa.css" />" rel="stylesheet">
+  <link href="<c:url value="/resources/style/style-funds.css" />" rel="stylesheet">
+  <link href="<c:url value="/resources/style/style-menu.css" />" rel="stylesheet">
   <script src="<c:url value="/resources/script/jquery-3.6.0.min.js" />"></script>
   <script src="<c:url value="/resources/script/script-cookies.js" />"></script>
-  <script src="<c:url value="/resources/script/script-pa.js" />"></script>
-  <title>Personal area</title>
+  <script src="<c:url value="/resources/script/script-funds.js" />"></script>
+  <title>Funds</title>
 </head>
 <body>
+
+<script>
+  jQuery(".funds-page-menu").addClass("active-menu-link");
+</script>
 
 <header>
 
@@ -27,56 +32,45 @@
 
   <nav class="personal-area-menu">
     <div class="personal-area-menu-list">
-      <a href="funds.jsp"></a>
-      <a href="personal-area.jsp"></a>
+      <a class="menu-button funds-page-menu" href="funds.jsp"></a>
+      <a class="menu-button pa-page-menu" href="personal-area.jsp"></a>
     </div>
   </nav>
   
-  <h1>PERSONAL AREA</h1>
+  <h1>FUNDS</h1>
 </header>
 
-<section class="edit-user-pop-up">
-  <form class="form register-form" action="editUserServlet" method="post">
-    <div class="close-pop-up">&#10006</div>
+<section class="transfer-funds-form">
+  <form class="form transfer-funds-form" action="transferFunds" method="post">
       <div class="form-group field">
-        <input type="text" class="form-field" placeholder="Name" name="name" id='name' required />
-        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-field" placeholder="Amount" name="amount" id='amount' required />
+        <label for="amount" class="form-label">Amount</label>
       </div>
       <div class="form-group field">
-        <input type="text" class="form-field" placeholder="Surname" name="surname" id='surname' required />
-        <label for="surname" class="form-label">Surname</label>
+        <input type="text" class="form-field" placeholder="From (Wallet)" name="from" id='from' required />
+        <label for="from" class="form-label">From</label>
       </div>
       <div class="form-group field">
-        <input type="text" class="form-field" placeholder="Country" name="country" id='country' required />
-        <label for="country" class="form-label">Country</label>
+        <input type="text" class="form-field" placeholder="To (wallet)" name="toWallet" id='toWallet' required />
+        <label for="toWallet" class="form-label">To (wallet)</label>
       </div>
     <label class="form-button-label">
-      <input id="editUser" class="button" type="submit" name="editUser" value="Save"/>
+      <input id="transferFunds" class="button" type="submit" name="transferFunds" value="Transfer"/>
     </label>
   </form>
 </section>
 
+
+<!--
 <main>
   <div class="personal-area-info">
-    <!--<p>Name: <span><%//= request.getAttribute("name")%></span></p>
-    <p>Surname: <span><%//= request.getAttribute("surname")%></span></p>
-    <p>Email: <span><%//= request.getAttribute("email")%></span></p>
-    <p>Country: <span><%//= request.getAttribute("country")%></span></p>-->
-    <div><p class="name-icon pa-info-icon"></p><p>Full name </p><p><span id="user-name"></span><span> </span><span id="user-surname"></span></p></div>
-    <div><p class="country-icon pa-info-icon"></p><p>Country </p><p><span id="user-country"></span></p></div>
+    <div><p class="name-icon pa-info-icon"></p><p>Balance </p><p><span id="user-name"></span><span> </span><span id="user-surname"></span></p></div>
+    <div><p class="country-icon pa-info-icon"></p><p>Wallet </p><p><span id="user-country"></span></p></div>
     <div><p class="email-icon pa-info-icon"></p><p>Email </p><p><span id="user-email"></span></p></div>
   </div>
 </main>
 
-<section class="interface-wrapper">
-
-  <form class="interface-item" action="logoutServlet" method="post">
-    <input id="log-out-button" class="button" type="submit" name="log-out" value="Log out"/>
-  </form>
-  <button class="button interface-item" id="change-info">
-    Edit info
-  </button>
-</section>
+-->
 
 </body>
 </html>
