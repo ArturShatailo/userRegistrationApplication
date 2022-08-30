@@ -113,6 +113,7 @@ main .funds-info div {
   justify-content: center;
   align-items: center;
   width: 350px;
+  margin: 25px 0;
 }
 main .funds-info div .walletUSD-icon {
   background-image: url("images/usd-wallet.png");

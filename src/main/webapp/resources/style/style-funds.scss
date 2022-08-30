@@ -86,7 +86,7 @@ main{
     }
 
     div {
-      @include displayFlex(column, center, center); width: 350px;
+      @include displayFlex(column, center, center); width: 350px; margin: 25px 0;
 
       .walletUSD-icon {
         background-image: url("images/usd-wallet.png");
