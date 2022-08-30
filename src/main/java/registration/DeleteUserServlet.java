@@ -43,7 +43,7 @@ public class DeleteUserServlet extends HttpServlet implements InstanceRepository
 
             //Call delete method of UserRepository class object.
             //Method is implemented from Crudable.
-            int status = ur.delete(id);
+            int status = ur.deleteUserById(id);
 
             if (status > 0) {
                 log.info("User with id {} is deleted by servlet {}",  id, this.getServletName());

@@ -20,12 +20,15 @@ public class User {
 
     private String password;
 
-    public User(String name, String surname, String country, String email, String password) {
+    private String role;
+
+    public User(String name, String surname, String country, String email, String password, String role) {
         this.name = name;
         this.surname = surname;
         this.country = country;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     @Override

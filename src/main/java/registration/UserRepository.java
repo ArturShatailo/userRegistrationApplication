@@ -83,7 +83,7 @@ public class UserRepository implements Crudable<User>, Loggable {
         int connectionStatus = 0;
 
         try {
-            String sql = "insert into users(name, surname, email, country, password) values (?,?,?,?,?)";
+            String sql = "insert into users(name, surname, email, country, password, role) values (?,?,?,?,?,?)";
 
             //Loggable interface method
             toLogStartSqlRequest("save()", sql);
@@ -95,6 +95,7 @@ public class UserRepository implements Crudable<User>, Loggable {
             ps.setString(3, user.getCountry());
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getPassword());
+            ps.setString(6, user.getRole());
 
             //Loggable interface method
             toLogConnectionStatus("save()", connectionStatus);
@@ -219,12 +220,64 @@ public class UserRepository implements Crudable<User>, Loggable {
 
     /**
      * <p>
+     *     Inside try-catch construction creates 'connection' object as an instance of Connection class,
+     *     using method getConnection().
+     *     Creates PreparedStatement object with 'update' SQL request, using prepareStatement() method of
+     *     Connection class with 'connection' object.
+     *     Sets received parameter 'id' as 'id' parameter for SQL request and isDeleted as true value;
+     *     Executes SQL request with executeUpdate method of 'ps' object instance of PreparedStatement class.
+     *     Closes connection here.
+     * </p>
+     * <p>
+     *     Catches SQLException and prints it.
+     * </p>
+     *
+     * @param id column 'id' value as a field 'id' of object that should be updated in database table
+     * @return 'connectionStatus' integer variable.
+     */
+    @Logged
+    public int deleteUserById(int id) {
+
+        //Loggable interface method
+        toLogStartOfMethod("deleteUserById()", this.getClass().getName());
+
+        int connectionStatus = 0;
+
+        try {
+            @Cleanup Connection connection = getConnection();
+            //String sql = "delete from users where id=?";
+            String sql = "update users set isDeleted=? where id=?";
+            //Loggable class method
+            toLogStartSqlRequest("deleteUserById()", sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            connectionStatus = ps.executeUpdate();
+
+            //Loggable class method
+            toLogConnectionStatus("deleteUserById()", connectionStatus);
+
+            connection.close();
+
+        } catch (SQLException sqlException) {
+            //Loggable class method
+            toLogSqlException("deleteUserById()", sqlException);
+            //sqlException.printStackTrace();
+        }
+        return connectionStatus;
+    }
+
+
+
+    /**
+     * <p>
      *     Creates 'user' object instance of User class.
      *     Inside try block creates 'connection' object instance of Connection class using
      *     getConnection() method.
      *     Creates 'ps' object instance of PreparedStatement class. 'ps' is set as a result of method
      *     prepareStatement of connection object with SQL 'select' request as a parameter 'sql'.
-     *     Received in 'id' parameter is set as 'id' parameter of SQL request.
+     *     Received in 'id' parameter is set as 'id' parameter of SQL request. "user" value is set as
+     *     role column and false value is set as isDeleted column in SQL request.
      *     The request is processing using executeQuery method of PreparedStatement 'ps' object. The return of
      *     executeQuery method is set as 'rs' object instance of ResultSet class.
      * </p>
@@ -252,13 +305,15 @@ public class UserRepository implements Crudable<User>, Loggable {
         try {
             @Cleanup Connection connection = getConnection();
 
-            String sql = "select * from users where id=?";
+            String sql = "select * from users where id=? AND role=? AND isDeleted=?";
 
             //Loggable class method
             toLogStartSqlRequest("getById()", sql);
 
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
+            ps.setString(2, "user");
+            ps.setBoolean(3, false);
             ResultSet rs = ps.executeQuery();
 
             user = createObjectByValue(rs, user);
@@ -309,13 +364,15 @@ public class UserRepository implements Crudable<User>, Loggable {
 
         try {
             @Cleanup Connection connection = getConnection();
-            String sql = "select * from users where email=?";
+            String sql = "select * from users where email=? AND role=? AND isDeleted=?";
 
             //Loggable class method
             toLogStartSqlRequest("getByEmail()", sql);
 
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, email);
+            ps.setString(2, "user");
+            ps.setBoolean(3, false);
             ResultSet rs = ps.executeQuery();
 
             user = createObjectByValue(rs, user);
@@ -379,12 +436,14 @@ public class UserRepository implements Crudable<User>, Loggable {
 
         try {
             @Cleanup Connection connection = getConnection();
-            String sql = "select * from users";
+            String sql = "select * from users where role=? AND isDeleted=?";
 
             //Loggable class method
             toLogStartSqlRequest("getAll()", sql);
 
             PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "user");
+            ps.setBoolean(2, false);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) usersList.add( new User(
@@ -393,7 +452,8 @@ public class UserRepository implements Crudable<User>, Loggable {
                                 rs.getString(3),
                                 rs.getString(5),
                                 rs.getString(4),
-                                rs.getString(6)));
+                                rs.getString(6),
+                                rs.getString(7)));
 
             //connection.close();
 

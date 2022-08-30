@@ -41,7 +41,7 @@ public class LoginAdminServlet extends HttpServlet implements InstanceRepository
 
             log.info("Admin is logged in successfully by servlet: {}", this.getServletName());
 
-            User admin = new User("Admin", "Admin", null, email, password);
+            User admin = new User("Admin", "Admin", null, email, password, "admin");
             HttpSession session = req.getSession();
             session.setAttribute("admin", admin);
 

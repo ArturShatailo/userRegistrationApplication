@@ -38,6 +38,7 @@ public class RegisterUserServlet extends HttpServlet implements InstanceReposito
         String country = req.getParameter("country").trim();
         String password = req.getParameter("password").trim();
         String passwordRepeat = req.getParameter("passwordRepeat").trim();
+        String role = "user";
 
         //Form verification functional interface 'Validable' implementation
         Validable v = () -> {
@@ -82,7 +83,7 @@ public class RegisterUserServlet extends HttpServlet implements InstanceReposito
 
             log.info("Try to validate registration form in servlet {}", this.getServletName());
             //New User object creating with data from request (form).
-            User user = new User(name, surname, email, country, password);
+            User user = new User(name, surname, email, country, password, role);
 
             //calls save method of 'ur' object instance of UserRepository class.
             int status = ur.save(user);
