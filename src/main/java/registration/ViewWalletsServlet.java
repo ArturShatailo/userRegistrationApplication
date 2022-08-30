@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 
 @Logged
 @Slf4j
-@WebServlet("/get-users-wallets")
+@WebServlet("/get-user-wallets")
 public class ViewWalletsServlet extends HttpServlet implements InstanceRepository, CookieFactory{
 
     WalletRepository walletRepository = new WalletRepository();
