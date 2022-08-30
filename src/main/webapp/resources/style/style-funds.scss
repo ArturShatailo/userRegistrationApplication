@@ -66,7 +66,12 @@ main{
   @include displayFlex(column, center, center); /*height: 60vh;*/ padding-bottom: 20vh; margin-top: 60px;
 
   .note-message{
-      width: 100%; margin: 20px; background-color: $secondary; font-size: 16px; color: white; padding: 20px; width: 510px;
+    margin: 50px 0; background-color: $secondary; font-size: 16px; color: white; padding: 20px; width: 510px;
+
+    p{
+      text-align: center;
+    }
+
   }
 
   .funds-info{

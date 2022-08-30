@@ -75,13 +75,15 @@ main {
   margin-top: 60px;
 }
 main .note-message {
-  width: 100%;
-  margin: 20px;
+  margin: 50px 0;
   background-color: rgba(254, 159, 151, 0.66);
   font-size: 16px;
   color: white;
   padding: 20px;
   width: 510px;
+}
+main .note-message p {
+  text-align: center;
 }
 main .funds-info {
   flex-wrap: wrap;
