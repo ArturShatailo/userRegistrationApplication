@@ -27,8 +27,8 @@
 
   <nav class="personal-area-menu">
     <div class="personal-area-menu-list">
-      <a class="menu-button" href="funds.jsp"></a>
-      <a class="menu-button" href="personal-area.jsp"></a>
+      <a href="funds.jsp"></a>
+      <a href="personal-area.jsp"></a>
     </div>
   </nav>
   
