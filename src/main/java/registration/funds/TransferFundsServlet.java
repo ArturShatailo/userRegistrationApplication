@@ -1,6 +1,5 @@
 package registration.funds;
 
-import com.sun.net.httpserver.Request;
 import registration.CookieFactory;
 import registration.InstanceRepository;
 import registration.entity.TransferRequest;
@@ -49,9 +48,6 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
                 setCookie(resp, "errorMessage", "Sorry, unable to create new request", 5);
                 getServletContext().getRequestDispatcher("/registration.jsp").forward(req, resp);
             }
-
-
-
 
         }
 
