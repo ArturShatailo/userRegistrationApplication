@@ -65,6 +65,10 @@ main{
 
   @include displayFlex(column, center, center); height: 60vh; padding-bottom: 20vh; margin-top: 60px;
 
+  .note-message{
+      width: 100%; margin: 20px; background-color: $secondary; font-size: 16px; color: white;
+  }
+
   .funds-info{
     flex-wrap: wrap;
 
@@ -73,11 +77,11 @@ main{
     }
 
     @media (min-width: 1024px) {
-      @include displayFlex(row, space-around, center); width: 70%;
+      @include displayFlex(row, space-around, center); width: 50%;
     }
 
     div {
-      @include displayFlex(column, center, center); width: 230px;
+      @include displayFlex(column, center, center); width: 350px;
 
       .walletUSD-icon {
         background-image: url("images/usd-wallet.png");
@@ -95,14 +99,17 @@ main{
 
       p {
         color: $white;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 300;
         margin: 10px;
+        letter-spacing: 2px;
+        text-align: center;
 
         span {
           color: $primary;
           font-weight: 500;
-          font-size: 22px;
+          font-size: 24px;
+          letter-spacing: 5px;
         }
 
       }

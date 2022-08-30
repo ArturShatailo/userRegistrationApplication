@@ -74,6 +74,13 @@ main {
   padding-bottom: 20vh;
   margin-top: 60px;
 }
+main .note-message {
+  width: 100%;
+  margin: 20px;
+  background-color: rgb(254, 159, 151);
+  font-size: 16px;
+  color: white;
+}
 main .funds-info {
   flex-wrap: wrap;
 }
@@ -92,7 +99,7 @@ main .funds-info {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width: 70%;
+    width: 50%;
   }
 }
 main .funds-info div {
@@ -100,7 +107,7 @@ main .funds-info div {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 230px;
+  width: 350px;
 }
 main .funds-info div .walletUSD-icon {
   background-image: url("images/usd-wallet.png");
@@ -116,14 +123,17 @@ main .funds-info div .funds-info-icon {
 }
 main .funds-info div p {
   color: #fff;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 300;
   margin: 10px;
+  letter-spacing: 2px;
+  text-align: center;
 }
 main .funds-info div p span {
   color: #e5e837;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 24px;
+  letter-spacing: 5px;
 }
 main form {
   display: flex;

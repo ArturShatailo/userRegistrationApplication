@@ -43,6 +43,10 @@
     <div><p class="walletEUR-icon funds-info-icon"></p><p>EUR wallet: <span id="user-eur-wallet"></span></p><p>EUR balance: <span id="user-eur-balance"></span></p></div>
   </div>
 
+  <div class="note-message">
+    <p>Please note that transfer from USD wallet to EUR wallet will be processed according to the current EUR/USD price</p>
+  </div>
+
   <form class="form transfer-funds-form" action="transferFunds" method="post">
     <div class="form-group field">
       <input type="text" class="form-field" placeholder="Amount" name="amount" id='amount' required />
