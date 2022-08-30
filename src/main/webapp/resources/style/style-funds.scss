@@ -61,9 +61,10 @@ header{
   @include displayFlex(column, center, center); height: 20vh; position: relative;
 }
 
-.transfer-funds-form{
+main{
 
-  @include displayFlex(column, center, center); margin-top: 5%;
+  @include displayFlex(column, center, center); height: 60vh; padding-bottom: 20vh;
+
 
   form{
 

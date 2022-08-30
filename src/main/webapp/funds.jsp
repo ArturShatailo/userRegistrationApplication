@@ -36,25 +36,25 @@
   <h1>FUNDS</h1>
 </header>
 
-<section class="transfer-funds-form">
+<main>
   <form class="form transfer-funds-form" action="transferFunds" method="post">
-      <div class="form-group field">
-        <input type="text" class="form-field" placeholder="Amount" name="amount" id='amount' required />
-        <label for="amount" class="form-label">Amount</label>
-      </div>
-      <div class="form-group field">
-        <input type="text" class="form-field" placeholder="From (Wallet)" name="from" id='from' required />
-        <label for="from" class="form-label">From</label>
-      </div>
-      <div class="form-group field">
-        <input type="text" class="form-field" placeholder="To (wallet)" name="toWallet" id='toWallet' required />
-        <label for="toWallet" class="form-label">To (wallet)</label>
-      </div>
+    <div class="form-group field">
+      <input type="text" class="form-field" placeholder="Amount" name="amount" id='amount' required />
+      <label for="amount" class="form-label">Amount</label>
+    </div>
+    <div class="form-group field">
+      <input type="text" class="form-field" placeholder="From (Wallet)" name="from" id='from' required />
+      <label for="from" class="form-label">From</label>
+    </div>
+    <div class="form-group field">
+      <input type="text" class="form-field" placeholder="To (wallet)" name="toWallet" id='toWallet' required />
+      <label for="toWallet" class="form-label">To (wallet)</label>
+    </div>
     <label class="form-button-label">
       <input id="transferFunds" class="button" type="submit" name="transferFunds" value="Transfer"/>
     </label>
   </form>
-</section>
+</main>
 
 
 <!--
