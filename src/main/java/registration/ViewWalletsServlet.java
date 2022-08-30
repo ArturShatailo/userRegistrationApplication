@@ -30,15 +30,15 @@ public class ViewWalletsServlet extends HttpServlet implements InstanceRepositor
             log.info("Try to get user information as JSON: {} by servlet {}", user, this.getServletName());
 
             Wallet walletUSD = walletRepository.getWallet(user.getId(), user.getEmail(), "USD");
-            Wallet c = walletRepository.getWallet(user.getId(), user.getEmail(), "EUR");
+            Wallet walletEUR = walletRepository.getWallet(user.getId(), user.getEmail(), "EUR");
 
             resp.setContentType("application/json");
             JSONObject obj = new JSONObject();
 
             obj.put("usd-wallet-number", walletUSD.getWallet_number());
             obj.put("usd-wallet-balance", walletUSD.getBalance());
-            obj.put("eur-wallet-number", walletUSD.getWallet_number());
-            obj.put("eur-wallet-balance", walletUSD.getBalance());
+            obj.put("eur-wallet-number", walletEUR.getWallet_number());
+            obj.put("eur-wallet-balance", walletEUR.getBalance());
 
             PrintWriter out = resp.getWriter();
             out.println(obj);
