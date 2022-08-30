@@ -408,7 +408,7 @@ public class UserRepository implements Crudable<User>, Loggable {
             user.setCountry(rs.getString(5));
             user.setEmail(rs.getString(4));
             user.setPassword(rs.getString(6));
-            user.setRole(rs.getString("user"));
+            user.setRole(rs.getString(7));
         }
         return user;
     }
