@@ -24,7 +24,7 @@ public class TransferRequestRepository  implements Crudable<TransferRequest>, Lo
         int connectionStatus = 0;
 
         try {
-            String sql = "insert into transfer_requests(from_wallet, emailfrom, to_wallet, date, status) values (?,?,?,?,?)";
+            String sql = "insert into transfer_requests(from_wallet, email_from, to_wallet, date, status) values (?,?,?,?,?)";
 
             //Loggable interface method
             toLogStartSqlRequest("save()", sql);
