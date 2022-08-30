@@ -251,7 +251,8 @@ public class UserRepository implements Crudable<User>, Loggable {
             toLogStartSqlRequest("deleteUserById()", sql);
 
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setBoolean(1, true);
+            ps.setInt(2, id);
             connectionStatus = ps.executeUpdate();
 
             //Loggable class method
