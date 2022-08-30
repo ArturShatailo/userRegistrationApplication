@@ -67,7 +67,8 @@ function getUsersData() {
         data: {},
         dataType: "json", // data to submit
         success: function (data) {
-            console.log(data);
+            $(".display-scroll-wrapper").children().remove();
+
             let keys = Object.keys(data).length;
             for (let i = 0; i < keys; i++) {
                 createUserRecord(data[i]);
