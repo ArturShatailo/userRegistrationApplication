@@ -1,5 +1,5 @@
 $primary: #e5e837;
-$secondary: rgba(254, 159, 151, 0.66);
+$secondary: rgb(254, 159, 151);
 $white: #fff;
 $black: #000;
 
@@ -66,10 +66,10 @@ main{
   @include displayFlex(column, center, center); /*height: 60vh;*/ padding-bottom: 20vh; margin-top: 60px;
 
   .note-message{
-    margin: 50px 0; background-color: $secondary; font-size: 16px; color: white; padding: 20px; width: 510px;
+    margin: 50px 0; background-color: #FE9F9720; padding: 20px; width: 550px;
 
     p{
-      text-align: center;
+      text-align: center; font-size: 18px; color: #FE9F97FF; line-height: 24px;
     }
 
   }
