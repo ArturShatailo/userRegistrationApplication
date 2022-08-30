@@ -21,8 +21,6 @@ function showSearch(val) {
 
     let servlet = val.trim() !== "" ? "/get-user-byEmail" : "/get-users";
 
-    if (val.trim()==="")
-
     $.ajax(servlet, {
         type: 'GET',  // http method
         data: {
