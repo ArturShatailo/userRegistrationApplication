@@ -18,7 +18,12 @@ $(document).ready(function() {
 });
 
 function showSearch(val) {
-    $.ajax('/get-user-byEmail', {
+
+    let servlet = val.trim() !== "" ? "/get-user-byEmail" : "/get-users";
+
+    if (val.trim()==="")
+
+    $.ajax(servlet, {
         type: 'GET',  // http method
         data: {
             email: val
