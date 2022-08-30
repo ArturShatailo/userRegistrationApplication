@@ -21,11 +21,14 @@ public class Wallet {
 
     private String currency;
 
-    public Wallet(String wallet_number, String owner, int owner_id, String currency) {
+    private Double balance;
+
+    public Wallet(String wallet_number, String owner, int owner_id, String currency, Double balance) {
         this.wallet_number = wallet_number;
         this.owner = owner;
         this.owner_id = owner_id;
         this.currency = currency;
+        this.balance = balance;
     }
 }
 

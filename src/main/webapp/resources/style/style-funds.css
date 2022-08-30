@@ -74,6 +74,57 @@ main {
   padding-bottom: 20vh;
   margin-top: 60px;
 }
+main .personal-area-info {
+  flex-wrap: wrap;
+}
+@media (min-width: 767px) {
+  main .personal-area-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+}
+@media (min-width: 1024px) {
+  main .personal-area-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+  }
+}
+main .personal-area-info div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 230px;
+}
+main .personal-area-info div .walletUSD-icon {
+  background-image: url("images/walletUSD.png");
+}
+main .personal-area-info div .walletEUR-icon {
+  background-image: url("images/walletEUR.png");
+}
+main .personal-area-info div .funds-info-icon {
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  margin-bottom: 20px;
+}
+main .personal-area-info div p {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 300;
+  margin: 10px;
+}
+main .personal-area-info div p span {
+  color: #e5e837;
+  font-weight: 500;
+  font-size: 22px;
+}
 main form {
   display: flex;
   flex-direction: column;

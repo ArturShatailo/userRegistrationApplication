@@ -33,10 +33,16 @@
     </div>
   </nav>
   
-  <h1>FUNDS</h1>
+  <h1>TRANSFER FUNDS</h1>
 </header>
 
 <main>
+
+  <div class="funds-info">
+    <div><p class="walletUSD-icon funds-info-icon"></p><p>USD wallet: <span id="user-usd-wallet"></span></p><p>USD balance: <span id="user-usd-balance"></span></p></div>
+    <div><p class="walletEUR-icon funds-info-icon"></p><p>EUR wallet: <span id="user-eur-wallet"></span></p><p>EUR balance: <span id="user-eur-balance"></span></p></div>
+  </div>
+
   <form class="form transfer-funds-form" action="transferFunds" method="post">
     <div class="form-group field">
       <input type="text" class="form-field" placeholder="Amount" name="amount" id='amount' required />

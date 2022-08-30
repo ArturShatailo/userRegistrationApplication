@@ -65,6 +65,49 @@ main{
 
   @include displayFlex(column, center, center); height: 60vh; padding-bottom: 20vh; margin-top: 60px;
 
+  .personal-area-info{
+    flex-wrap: wrap;
+
+    @media (min-width: 767px) {
+      @include displayFlex(column, space-around, center); width: 100%
+    }
+
+    @media (min-width: 1024px) {
+      @include displayFlex(row, space-around, center); width: 70%;
+    }
+
+    div {
+      @include displayFlex(column, center, center); width: 230px;
+
+      .walletUSD-icon {
+        background-image: url("images/walletUSD.png");
+      }
+      .walletEUR-icon {
+        background-image: url("images/walletEUR.png");
+      }
+
+      .funds-info-icon{
+        width: 80px;
+        height: 80px;
+        background-size: cover;
+        margin-bottom: 20px;
+      }
+
+      p {
+        color: $white;
+        font-size: 18px;
+        font-weight: 300;
+        margin: 10px;
+
+        span {
+          color: $primary;
+          font-weight: 500;
+          font-size: 22px;
+        }
+
+      }
+    }
+  }
 
   form{
 
