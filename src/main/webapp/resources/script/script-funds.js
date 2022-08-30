@@ -17,7 +17,7 @@ function getCurrentUserWallets() {
         data: {},  // data to submit
         success: function (data) {
 
-            console.log(data);
+            console.log(data["usd-wallet-number"]);
 
             $('#user-usd-wallet').text(data["usd-wallet-number"]);
             $('#user-usd-balance').text(data["usd-wallet-balance"]);
