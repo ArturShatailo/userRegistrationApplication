@@ -4,7 +4,7 @@
 }
 .personal-area-menu .personal-area-menu-list {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 }
 .personal-area-menu .personal-area-menu-list .menu-button {
