@@ -21,7 +21,7 @@
 <body>
 
 <script>
-  jQuery(".funds-page-menu").addClass("active-menu-link");
+  jQuery(".funds-page-menu").classList.add("active-menu-link");
 </script>
 
 <header>
