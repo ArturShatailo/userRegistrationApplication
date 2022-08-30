@@ -1,5 +1,5 @@
 $primary: #e5e837;
-$secondary: rgb(254 159 151);
+$secondary: rgba(254, 159, 151, 0.66);
 $white: #fff;
 $black: #000;
 
@@ -63,10 +63,10 @@ header{
 
 main{
 
-  @include displayFlex(column, center, center); height: 60vh; padding-bottom: 20vh; margin-top: 60px;
+  @include displayFlex(column, center, center); /*height: 60vh;*/ padding-bottom: 20vh; margin-top: 60px;
 
   .note-message{
-      width: 100%; margin: 20px; background-color: $secondary; font-size: 16px; color: white;
+      width: 100%; margin: 20px; background-color: $secondary; font-size: 16px; color: white; padding: 20px; width: 510px;
   }
 
   .funds-info{

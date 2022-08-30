@@ -33,7 +33,7 @@ h1 {
 
 a {
   font-size: 16px;
-  color: rgb(254, 159, 151);
+  color: rgba(254, 159, 151, 0.66);
   font-weight: 300;
   letter-spacing: 1.2px;
 }
@@ -51,7 +51,7 @@ a:hover {
   margin: 0 20px 0;
 }
 .button:hover {
-  background-color: rgb(254, 159, 151);
+  background-color: rgba(254, 159, 151, 0.66);
   color: #000;
   transform: scale(1.1);
 }
@@ -70,16 +70,18 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  /*height: 60vh;*/
   padding-bottom: 20vh;
   margin-top: 60px;
 }
 main .note-message {
   width: 100%;
   margin: 20px;
-  background-color: rgb(254, 159, 151);
+  background-color: rgba(254, 159, 151, 0.66);
   font-size: 16px;
   color: white;
+  padding: 20px;
+  width: 510px;
 }
 main .funds-info {
   flex-wrap: wrap;
@@ -178,7 +180,7 @@ main form .form-group {
 main form .form-field {
   font-family: inherit;
   width: 100%;
-  border-bottom: 2px solid rgb(254, 159, 151);
+  border-bottom: 2px solid rgba(254, 159, 151, 0.66);
   outline: 0;
   font-size: 18px;
   color: #fff;
@@ -200,13 +202,13 @@ main form .form-label {
   display: block;
   transition: 0.8s;
   font-size: 18px;
-  color: rgb(254, 159, 151);
+  color: rgba(254, 159, 151, 0.66);
 }
 main form .form-field:focus {
   padding-bottom: 5px;
   font-weight: 500;
   border-width: 3px;
-  border-color: rgb(254, 159, 151); /*linear-gradient(to right, $primary, $secondary); border-image-slice: 1;*/
+  border-color: rgba(254, 159, 151, 0.66); /*linear-gradient(to right, $primary, $secondary); border-image-slice: 1;*/
 }
 main form .form-field:focus ~ .form-label {
   position: absolute;
