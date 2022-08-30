@@ -1,5 +1,7 @@
 package registration;
 
+import registration.repository.UserRepository;
+
 public interface InstanceRepository {
 
     /**

@@ -63,7 +63,7 @@ header{
 
 main{
 
-  @include displayFlex(column, center, center); height: 60vh; padding-bottom: 20vh;
+  @include displayFlex(column, center, center); height: 60vh; padding-bottom: 20vh; margin-top: 60px;
 
 
   form{

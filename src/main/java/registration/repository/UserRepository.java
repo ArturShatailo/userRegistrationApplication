@@ -1,8 +1,11 @@
-package registration;
+package registration.repository;
 
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
+import registration.Crudable;
 import registration.Interceptors.Logged;
+import registration.Loggable;
+import registration.entity.TransferRequest;
 import registration.entity.User;
 
 import java.sql.*;
@@ -11,47 +14,9 @@ import java.util.List;
 
 @Logged
 @Slf4j
-public class UserRepository implements Crudable<User>, Loggable {
+public class UserRepository implements Crudable<User>, Loggable, Connected {
 
-    /**
-     * Creates database connection constants and using DriverManager and method getConnection
-     * connects to the clarified in constants database address with password and username.
-     * SQLException is caught in case of database connection is failed.
-     *
-     * @return connection instance of class Connection
-     */
-
-    @Logged
-    public Connection getConnection() {
-
-        toLogStartOfMethod("getConnection()", this.getClass().getName());
-
-        /*Connection connection = null;
-        String url = "jdbc:postgresql://localhost:5432/users";
-        String user = "postgres";
-        String password = "Postgresql";*/
-
-        Connection connection = null;
-        String url = "jdbc:postgresql://ec2-54-170-90-26.eu-west-1.compute.amazonaws.com:5432/d9sd8hq32ar6pt?sslmode=require";
-        String user = "mmsapcfmzzfllt";
-        String password = "60fd7eee3c4263a4602eca075bfb3cf70deec3bad10cfce1daf28c2944b713ff";
-
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-            if (connection != null) {
-                log.info("Successful connection: connection = {}", connection);
-                //System.out.println("Connection to the server PostgreSQL is successful.");
-            } else {
-                log.info("Connection failed: connection = {}", connection);
-                //System.out.println("Connection failed.");
-            }
-        } catch (SQLException sqlException) {
-            toLogSqlException("save", sqlException);
-            //System.out.println("SQL exception please read the error message: ");
-            //sqlException.printStackTrace();
-        }
-        return connection;
-    }
+    WalletRepository walletRepository = new WalletRepository();
 
     /**
      * <p>
@@ -101,7 +66,10 @@ public class UserRepository implements Crudable<User>, Loggable {
             toLogConnectionStatus("save()", connectionStatus);
 
             connectionStatus = ps.executeUpdate();
-            //connection.close();
+
+            //create wallets for each registered user
+            if (connectionStatus > 0)
+                connectionStatus = walletRepository.createWalletsForUser(user);
 
         } catch (SQLException sqlException) {
             toLogSqlException("save", sqlException);
@@ -469,5 +437,9 @@ public class UserRepository implements Crudable<User>, Loggable {
     }
 
 
+    public int transferFunds(TransferRequest transferRequest) {
 
+        return 1;
+
+    }
 }

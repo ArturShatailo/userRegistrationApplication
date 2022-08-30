@@ -72,6 +72,7 @@ main {
   align-items: center;
   height: 60vh;
   padding-bottom: 20vh;
+  margin-top: 60px;
 }
 main form {
   display: flex;
