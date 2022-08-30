@@ -63,12 +63,11 @@ header{
 
 .transfer-funds-form{
 
-  @include displayFlex(column, center, center); position: absolute; width: 100vw;
-  height: 100vh; background-color: rgba(0, 0, 0, 0.49); top: 0; left: 0; z-index: 100;
+  @include displayFlex(column, center, center); margin-top: 5%;
 
   form{
 
-    @include displayFlex(column, space-between, center); background-color: $black; box-shadow: $primary 0 0 10px;
+    @include displayFlex(column, space-between, center); box-shadow: $primary 0 0 10px;
     width: 510px; height: 400px; padding: 40px 40px; position: relative;
 
     .close-pop-up{

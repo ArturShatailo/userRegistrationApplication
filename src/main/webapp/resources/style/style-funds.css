@@ -70,21 +70,13 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  display: none;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.49);
-  top: 0;
-  left: 0;
-  z-index: 100;
+  margin-top: 5%;
 }
 .transfer-funds-form form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #000;
   box-shadow: #e5e837 0 0 10px;
   width: 510px;
   height: 400px;
