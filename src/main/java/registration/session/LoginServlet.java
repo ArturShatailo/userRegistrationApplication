@@ -59,6 +59,8 @@ public class LoginServlet extends HttpServlet implements InstanceRepository, Coo
         //creates User object and sets it as an object from database found by 'email' column
         User user = ur.getByEmail(email);
 
+        log.info("User {} is trying to log in", user);
+
         if(user.getEmail() != null && user.getRole().equals("user")) {
 
             if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
