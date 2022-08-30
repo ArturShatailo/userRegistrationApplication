@@ -17,11 +17,9 @@ $(document).ready(function() {
 
 });
 
-function showSearch(val) {
+function showSearchByEmail(val) {
 
-    let servlet = val.trim() !== "" ? "/get-user-byEmail" : "/get-users";
-
-    $.ajax(servlet, {
+    $.ajax("/get-user-byEmail", {
         type: 'GET',  // http method
         data: {
             email: val
@@ -36,6 +34,12 @@ function showSearch(val) {
             printCookies();
         }
     });
+
+}
+
+function showSearch(val) {
+    if (val !== "") showSearchByEmail(val);
+    else getUsersData();
 }
 
 
