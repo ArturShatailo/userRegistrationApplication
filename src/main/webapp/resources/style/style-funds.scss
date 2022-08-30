@@ -65,7 +65,7 @@ main{
 
   @include displayFlex(column, center, center); height: 60vh; padding-bottom: 20vh; margin-top: 60px;
 
-  .personal-area-info{
+  .funds-info{
     flex-wrap: wrap;
 
     @media (min-width: 767px) {
@@ -80,10 +80,10 @@ main{
       @include displayFlex(column, center, center); width: 230px;
 
       .walletUSD-icon {
-        background-image: url("images/walletUSD.png");
+        background-image: url("images/usd-wallet.png");
       }
       .walletEUR-icon {
-        background-image: url("images/walletEUR.png");
+        background-image: url("images/eur-wallet.png");
       }
 
       .funds-info-icon{

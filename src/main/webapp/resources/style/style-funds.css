@@ -74,11 +74,11 @@ main {
   padding-bottom: 20vh;
   margin-top: 60px;
 }
-main .personal-area-info {
+main .funds-info {
   flex-wrap: wrap;
 }
 @media (min-width: 767px) {
-  main .personal-area-info {
+  main .funds-info {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -87,7 +87,7 @@ main .personal-area-info {
   }
 }
 @media (min-width: 1024px) {
-  main .personal-area-info {
+  main .funds-info {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -95,32 +95,32 @@ main .personal-area-info {
     width: 70%;
   }
 }
-main .personal-area-info div {
+main .funds-info div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 230px;
 }
-main .personal-area-info div .walletUSD-icon {
-  background-image: url("images/walletUSD.png");
+main .funds-info div .walletUSD-icon {
+  background-image: url("images/usd-wallet.png");
 }
-main .personal-area-info div .walletEUR-icon {
-  background-image: url("images/walletEUR.png");
+main .funds-info div .walletEUR-icon {
+  background-image: url("images/eur-wallet.png");
 }
-main .personal-area-info div .funds-info-icon {
+main .funds-info div .funds-info-icon {
   width: 80px;
   height: 80px;
   background-size: cover;
   margin-bottom: 20px;
 }
-main .personal-area-info div p {
+main .funds-info div p {
   color: #fff;
   font-size: 18px;
   font-weight: 300;
   margin: 10px;
 }
-main .personal-area-info div p span {
+main .funds-info div p span {
   color: #e5e837;
   font-weight: 500;
   font-size: 22px;
