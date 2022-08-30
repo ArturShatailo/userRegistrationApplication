@@ -16,6 +16,9 @@ function getCurrentUserWallets() {
         type: 'GET',  // http method
         data: {},  // data to submit
         success: function (data) {
+
+            console.log(data);
+
             $('#user-usd-wallet').text(data["usd-wallet-number"]);
             $('#user-usd-balance').text(data["usd-wallet-balance"]);
             $('#user-eur-wallet').text(data["eur-wallet-number"]);
