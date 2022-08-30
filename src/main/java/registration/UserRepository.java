@@ -224,7 +224,7 @@ public class UserRepository implements Crudable<User>, Loggable {
      *     using method getConnection().
      *     Creates PreparedStatement object with 'update' SQL request, using prepareStatement() method of
      *     Connection class with 'connection' object.
-     *     Sets received parameter 'id' as 'id' parameter for SQL request and isDeleted as true value;
+     *     Sets received parameter 'id' as 'id' parameter for SQL request and isdeleted as true value;
      *     Executes SQL request with executeUpdate method of 'ps' object instance of PreparedStatement class.
      *     Closes connection here.
      * </p>
@@ -246,7 +246,7 @@ public class UserRepository implements Crudable<User>, Loggable {
         try {
             @Cleanup Connection connection = getConnection();
             //String sql = "delete from users where id=?";
-            String sql = "update users set isDeleted=? where id=?";
+            String sql = "update users set isdeleted=? where id=?";
             //Loggable class method
             toLogStartSqlRequest("deleteUserById()", sql);
 
@@ -277,7 +277,7 @@ public class UserRepository implements Crudable<User>, Loggable {
      *     Creates 'ps' object instance of PreparedStatement class. 'ps' is set as a result of method
      *     prepareStatement of connection object with SQL 'select' request as a parameter 'sql'.
      *     Received in 'id' parameter is set as 'id' parameter of SQL request. "user" value is set as
-     *     role column and false value is set as isDeleted column in SQL request.
+     *     role column and false value is set as isdeleted column in SQL request.
      *     The request is processing using executeQuery method of PreparedStatement 'ps' object. The return of
      *     executeQuery method is set as 'rs' object instance of ResultSet class.
      * </p>
@@ -305,7 +305,7 @@ public class UserRepository implements Crudable<User>, Loggable {
         try {
             @Cleanup Connection connection = getConnection();
 
-            String sql = "select * from users where id=? AND role=? AND isDeleted=?";
+            String sql = "select * from users where id=? AND role=? AND isdeleted=?";
 
             //Loggable class method
             toLogStartSqlRequest("getById()", sql);
@@ -364,7 +364,7 @@ public class UserRepository implements Crudable<User>, Loggable {
 
         try {
             @Cleanup Connection connection = getConnection();
-            String sql = "select * from users where email=? AND role=? AND isDeleted=?";
+            String sql = "select * from users where email=? AND role=? AND isdeleted=?";
 
             //Loggable class method
             toLogStartSqlRequest("getByEmail()", sql);
@@ -436,7 +436,7 @@ public class UserRepository implements Crudable<User>, Loggable {
 
         try {
             @Cleanup Connection connection = getConnection();
-            String sql = "select * from users where role=? AND isDeleted=?";
+            String sql = "select * from users where role=? AND isdeleted=?";
 
             //Loggable class method
             toLogStartSqlRequest("getAll()", sql);
