@@ -24,8 +24,8 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
 
     public int createWalletsForUser(User user) {
 
-        boolean statusUSD = saveWallet(new Wallet(generateNumber(), user.getEmail(), user.getId(), "USD", 0.0));
-        boolean statusEUR = saveWallet(new Wallet(generateNumber(), user.getEmail(), user.getId(), "EUR", 0.0));
+        boolean statusUSD = saveWallet(new Wallet(generateNumber(), user.getEmail(), "USD", 0.0));
+        boolean statusEUR = saveWallet(new Wallet(generateNumber(), user.getEmail(), "EUR", 0.0));
 
         return  statusUSD && statusEUR ? 1 : 0;
     }
@@ -53,7 +53,7 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
         int connectionStatus = 0;
 
         try {
-            String sql = "insert into wallets(wallet_number, owner, owner_id, currency, balance) values (?,?,?,?,?)";
+            String sql = "insert into wallets(wallet_number, owner, currency, balance) values (?,?,?,?)";
 
             //Loggable interface method
             toLogStartSqlRequest("saveWallet()", sql);
@@ -62,9 +62,8 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, wallet.getWallet_number());
             ps.setString(2, wallet.getOwner());
-            ps.setInt(3, wallet.getOwner_id());
-            ps.setString(4, wallet.getCurrency());
-            ps.setDouble(5, wallet.getBalance());
+            ps.setString(3, wallet.getCurrency());
+            ps.setDouble(4, wallet.getBalance());
 
             //Loggable interface method
             toLogConnectionStatus("save()", connectionStatus);
@@ -100,21 +99,8 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
         return null;
     }
 
-    @Override
-    public Wallet createObjectByValue(ResultSet R, Wallet T) throws SQLException {
-        if (R.next()) {
-            T.setId(R.getInt(1));
-            T.setWallet_number(R.getString(2));
-            T.setOwner(R.getString(3));
-            T.setOwner_id(R.getInt(5));
-            T.setCurrency(R.getString(4));
-            T.setBalance(R.getDouble(5));
-        }
-        return T;
-    }
-
     @Logged
-    public Wallet getWallet(int id, String email, String currency) {
+    public Wallet getWallet(String email, String currency) {
 
         //Loggable interface method
         toLogStartOfMethod("getWallet()", this.getClass().getName());
@@ -124,15 +110,14 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
         try {
             @Cleanup Connection connection = getConnection();
 
-            String sql = "select * from wallets where owner_id=? AND owner=? AND currency=?";
+            String sql = "select * from wallets where owner=? AND currency=?";
 
             //Loggable class method
             toLogStartSqlRequest("getWallet()", sql);
 
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.setString(2, email);
-            ps.setString(3, currency);
+            ps.setString(1, email);
+            ps.setString(2, currency);
             ResultSet rs = ps.executeQuery();
 
             wallet = createObjectByValue(rs, wallet);
@@ -144,5 +129,17 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
         }
 
         return wallet;
+    }
+
+    @Override
+    public Wallet createObjectByValue(ResultSet R, Wallet T) throws SQLException {
+        if (R.next()) {
+            T.setId(R.getInt(1));
+            T.setWallet_number(R.getString(2));
+            T.setOwner(R.getString(3));
+            T.setCurrency(R.getString(4));
+            T.setBalance(R.getDouble(5));
+        }
+        return T;
     }
 }

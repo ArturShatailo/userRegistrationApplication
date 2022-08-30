@@ -29,8 +29,8 @@ public class ViewWalletsServlet extends HttpServlet implements InstanceRepositor
 
             log.info("Try to get user information as JSON: {} by servlet {}", user, this.getServletName());
 
-            Wallet walletUSD = walletRepository.getWallet(user.getId(), user.getEmail(), "USD");
-            Wallet walletEUR = walletRepository.getWallet(user.getId(), user.getEmail(), "EUR");
+            Wallet walletUSD = walletRepository.getWallet(user.getEmail(), "USD");
+            Wallet walletEUR = walletRepository.getWallet(user.getEmail(), "EUR");
 
             log.info("Try to send wallets information as JSON: {} and {} by servlet {}", walletUSD, walletEUR, this.getServletName());
 

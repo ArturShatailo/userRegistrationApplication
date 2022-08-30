@@ -57,8 +57,8 @@ public class UserRepository implements Crudable<User>, Loggable, Connected {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, user.getName());
             ps.setString(2, user.getSurname());
-            ps.setString(3, user.getCountry());
-            ps.setString(4, user.getEmail());
+            ps.setString(4, user.getCountry());
+            ps.setString(3, user.getEmail());
             ps.setString(5, user.getPassword());
             ps.setString(6, user.getRole());
 
