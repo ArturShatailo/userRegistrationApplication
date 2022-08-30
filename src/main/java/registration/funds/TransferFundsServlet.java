@@ -38,8 +38,8 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
         String to = req.getParameter("toWallet");
         User user = (User) req.getSession().getAttribute("user");
 
-        Wallet toWallet = getWalletOfUser(from, resp, req);
-        Wallet fromWallet = getWalletOfUser(to, resp, req);
+        Wallet toWallet = getWalletOfUser(to, resp, req);
+        Wallet fromWallet = getWalletOfUser(from, resp, req);
 
 
         Validable v = () -> {
