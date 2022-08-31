@@ -17,6 +17,10 @@ $(document).ready(function() {
 
 });
 
+function clearUsersSection() {
+    $(".display-users-section").children().remove();
+}
+
 function showSearchByEmail(val) {
 
     $.ajax("/get-user-byEmail", {
@@ -26,7 +30,7 @@ function showSearchByEmail(val) {
         },
         dataType: "json", // data to submit
         success: function (data) {
-            $(".display-users-section").children().remove();
+            clearUsersSection();
             createUserRecord(data);
         },
         error: function () {
@@ -67,12 +71,12 @@ function getUsersData() {
         data: {},
         dataType: "json", // data to submit
         success: function (data) {
-            $(".display-users-section").children().remove();
 
+            clearUsersSection()
             let keys = Object.keys(data).length;
-            for (let i = 0; i < keys; i++) {
-                createUserRecord(data[i]);
-            }
+            if (keys === 0) clearTransfersSection();
+            else for (let i = 0; i < keys; i++) createUserRecord(data[i]);
+
         },
         error: function () {
             setCookie("errorMessage", "Unable to upload personal data", 5);

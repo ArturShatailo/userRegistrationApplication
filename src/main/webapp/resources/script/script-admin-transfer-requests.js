@@ -3,14 +3,13 @@ $(document).ready(function() {
     //Calls function that fills html with received from database values
     getTransfersData();
 
-    $(document).on('click', function (e){
+    /*$(document).on('click', function (e){
         e.preventDefault();
         let _this = e.target;
-        console.log(_this);
-        /*if(_this.matches("#deleteUser")){
+        if(_this.matches("#deleteUser")){
             deleteUser($( _this ).attr("userid"));
-        }*/
-    })
+        }
+    })*/
     $("#search-button").click(function(){
         showSearch($("#search-value").val().trim());
     });
@@ -27,13 +26,11 @@ function showSearchByValue(val) {
         },
         dataType: "json", // data to submit
         success: function (data) {
-            $(".display-transfers-section").children().remove();
-            console.log("jjj")
+
+            clearTransfersSection();
             let keys = Object.keys(data).length;
-            for (let i = 0; i < keys; i++) {
-                console.log(data[i])
-                createTransferRecord(data[i]);
-            }
+            if (keys === 0) clearTransfersSection();
+            else for (let i = 0; i < keys; i++) createTransferRecord(data[i]);
         },
         error: function () {
             setCookie("errorMessage", "Unable to find record", 5);
@@ -67,18 +64,21 @@ function deleteUser(id) {
     });
 }*/
 
+function clearTransfersSection() {
+    $(".display-transfers-section").children().remove();
+}
+
 function getTransfersData() {
     $.ajax('/get-transfers', {
         type: 'GET',  // http method
         data: {},
         dataType: "json", // data to submit
         success: function (data) {
-            $(".display-transfers-section").children().remove();
 
+            clearTransfersSection();
             let keys = Object.keys(data).length;
-            for (let i = 0; i < keys; i++) {
-                createTransferRecord(data[i]);
-            }
+            if (keys === 0) clearTransfersSection();
+            else for (let i = 0; i < keys; i++) createTransferRecord(data[i]);
         },
         error: function () {
             setCookie("errorMessage", "Unable to upload transfers data", 5);
