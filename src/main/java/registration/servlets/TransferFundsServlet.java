@@ -1,4 +1,4 @@
-package registration.funds;
+package registration.servlets;
 
 import lombok.extern.slf4j.Slf4j;
 import registration.servlets.CookieFactory;
@@ -95,20 +95,21 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
                 int statusTransfer = walletRepository.transferFunds(fromWallet, toWallet, amount);
                 if (statusTransfer > 0) {
                     setCookie(resp, "successfulMessage", "Request processed successfully", 5);
-                    getServletContext().getRequestDispatcher("/funds.jsp").forward(req, resp);
+                    resp.sendRedirect("/funds.jsp");
                 } else {
                     setCookie(resp, "errorMessage", "Sorry, unable to process request", 5);
-                    getServletContext().getRequestDispatcher("/funds.jsp").forward(req, resp);
+                    resp.sendRedirect("/funds.jsp");
+                    //getServletContext().getRequestDispatcher("/funds.jsp").forward(req, resp);
                 }
 
             } else {
                 log.info("unable to create new request {}", transferRequest);
                 setCookie(resp, "errorMessage", "Sorry, unable to create new request", 5);
-                getServletContext().getRequestDispatcher("/registration.jsp").forward(req, resp);
+                resp.sendRedirect("/registration.jsp");
             }
         } else {
             log.error("Validation of transfer form is failed in servlet {}", this.getServletName());
-            getServletContext().getRequestDispatcher("/funds.jsp").forward(req, resp);
+            resp.sendRedirect("/funds.jsp");
         }
     }
 
@@ -121,7 +122,7 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
         } catch (Exception e) {
             log.info("unable to find wallet {}", walletNumber);
             setCookie(resp, "errorMessage", "Unable to find wallet", 5);
-            getServletContext().getRequestDispatcher("/funds.jsp").forward(req, resp);
+            resp.sendRedirect("/funds.jsp");
         }
 
         return wallet;

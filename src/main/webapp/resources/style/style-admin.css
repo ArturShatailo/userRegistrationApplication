@@ -127,7 +127,41 @@ main .display-section .display-scroll-wrapper {
     height: 400px;
   }
 }
-main .display-section .display-scroll-wrapper div {
+main .display-section .display-scroll-wrapper .table-titles-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: auto;
+  width: 100%;
+  overflow-x: scroll;
+  align-items: center;
+}
+main .display-section .display-scroll-wrapper .table-titles-section div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+main .display-section .display-scroll-wrapper .table-titles-section div p {
+  min-width: 175px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+main .display-section .display-scroll-wrapper .table-titles-section .content-table-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: auto;
+  width: 100%;
+  overflow-x: scroll;
+  align-items: center;
+}
+main .display-section .display-scroll-wrapper .table-titles-section .content-table-inner div {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -137,10 +171,10 @@ main .display-section .display-scroll-wrapper div {
   transition: 0.3s;
   cursor: pointer;
 }
-main .display-section .display-scroll-wrapper div:hover {
+main .display-section .display-scroll-wrapper .table-titles-section .content-table-inner div:hover {
   background-color: rgba(255, 255, 255, 0.1803921569);
 }
-main .display-section .display-scroll-wrapper div p {
+main .display-section .display-scroll-wrapper .table-titles-section .content-table-inner div p {
   min-width: 175px;
   font-size: 16px;
   color: rgb(254, 159, 151);

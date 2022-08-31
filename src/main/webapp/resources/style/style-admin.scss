@@ -66,52 +66,107 @@ header{
   @include displayFlex(column, center, center); height: 20vh; position: relative;
 }
 
-main{
-  @include displayFlex(column, center, center); padding: 2% 5% 10px;
+main {
+  @include displayFlex(column, center, center);
+  padding: 2% 5% 10px;
 
-  .search-section{
+  .search-section {
 
-    width: 100%; padding: 20px;
+    width: 100%;
+    padding: 20px;
 
-      .search-value{
-          width: 200px; height: 28px; outline: none !important; padding: 5px; background-color: rgba(229, 232, 55, 0.71);
-      }
+    .search-value {
+      width: 200px;
+      height: 28px;
+      outline: none !important;
+      padding: 5px;
+      background-color: rgba(229, 232, 55, 0.71);
+    }
 
   }
 
-  .display-section{
-    padding: 20px; background-color: rgba(0, 0, 0, 0.4); @include displayFlex(column, center, center); width: 100%;
+  .display-section {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    @include displayFlex(column, center, center);
+    width: 100%;
 
-    .display-scroll-wrapper{
-      overflow-y: scroll; @include displayFlex(column, flex-start, flex-start); height: 400px; width: 100%;
-      overflow-x: hidden; align-items: center;
+
+    .display-scroll-wrapper {
+      overflow-y: scroll;
+      @include displayFlex(column, flex-start, flex-start);
+      height: 400px;
+      width: 100%;
+      overflow-x: hidden;
+      align-items: center;
 
       @media (min-width: 767px) {
-        /*width: 600px;*/ overflow-x: scroll; height: 900px;
+        /*width: 600px;*/
+        overflow-x: scroll;
+        height: 900px;
       }
 
       @media (min-width: 1024px) {
-        /*width: 1050px;*/ overflow-x: hidden; height: 400px;
+        /*width: 1050px;*/
+        overflow-x: hidden;
+        height: 400px;
       }
 
-      div{
-        @include displayFlex(row, center, center); padding: 10px 0;
-        background-color: #ffffff00; transition: 0.3s; cursor: pointer;
+      .table-titles-section {
+        @include displayFlex(column, flex-start, flex-start);
+        height: auto;
+        width: 100%;
+        overflow-x: scroll;
+        align-items: center;
 
-        &:hover{
-          background-color: #ffffff2e;
+        div {
+          @include displayFlex(row, center, center);
+          padding: 10px 0;
+
+          p {
+            min-width: 175px;
+            font-size: 16px;
+            color: $white;
+            font-weight: 600;
+            text-align: center;
+          }
+
         }
 
-        p{
-          min-width: 175px; font-size: 16px; color: $secondary; font-weight: 500; text-align: center;
-        }
+        .content-table-inner {
 
+          @include displayFlex(column, flex-start, flex-start);
+          height: auto;
+          width: 100%;
+          overflow-x: scroll;
+          align-items: center;
+
+          div {
+            @include displayFlex(row, center, center);
+            padding: 10px 0;
+            background-color: #ffffff00;
+            transition: 0.3s;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #ffffff2e;
+            }
+
+            p {
+              min-width: 175px;
+              font-size: 16px;
+              color: $secondary;
+              font-weight: 500;
+              text-align: center;
+            }
+
+          }
+        }
       }
 
     }
 
   }
-
 }
 
 .interface-wrapper{

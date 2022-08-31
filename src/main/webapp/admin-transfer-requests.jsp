@@ -44,9 +44,23 @@
         </button>
     </section>
     <section class="display-section">
-        <div class="display-scroll-wrapper display-transfers-section">
 
+        <div class="display-scroll-wrapper">
+            <div class="table-titles-section">
+                <div>
+                    <p>Wallet from</p>
+                    <p>Email from</p>
+                    <p>Wallet to</p>
+                    <p>Email to</p>
+                    <p>Amount</p>
+                    <p>Currency</p>
+                    <p>Status</p>
+                    <p>Date</p>
+                </div>
+            </div>
+            <div class="display-transfers-section content-table-inner"></div>
         </div>
+
     </section>
 
 </main>
