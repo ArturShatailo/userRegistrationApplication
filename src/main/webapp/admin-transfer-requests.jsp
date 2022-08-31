@@ -47,6 +47,7 @@
         <div class="display-scroll-wrapper">
             <div class="table-titles-section">
                 <div>
+                    <p>ID</p>
                     <p>Wallet from</p>
                     <p>Email from</p>
                     <p>Wallet to</p>

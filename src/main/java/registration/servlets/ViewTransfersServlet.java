@@ -5,10 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import registration.Interceptors.Logged;
 import registration.entity.TransferRequest;
-import registration.entity.User;
 import registration.repository.InstanceRepository;
 import registration.repository.TransferRequestRepository;
-import registration.servlets.CookieFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Logged
@@ -36,10 +37,12 @@ public class ViewTransfersServlet extends HttpServlet implements InstanceReposit
         //if(user != null && lu != null){
         log.info("Try to get all transfers in servlet {}", this.getServletName());
 
-            resp.setContentType("application/json");
-            JSONObject obj = new JSONObject();
+        resp.setContentType("application/json");
+        JSONObject obj = new JSONObject();
 
-            int counter = 0;
+        DateFormat dataObj = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z");
+        int counter = 0;
+
             for(TransferRequest tr : ltr){
                 JSONObject uo = new JSONObject();
                 uo.put("id", tr.getId());
@@ -49,7 +52,7 @@ public class ViewTransfersServlet extends HttpServlet implements InstanceReposit
                 uo.put("email_to", tr.getToEmail());
                 uo.put("amount", tr.getAmount());
                 uo.put("currency", tr.getCurrency());
-                uo.put("date", tr.getDate());
+                uo.put("date", dataObj.format(new Date(tr.getDate())));
                 uo.put("status", tr.getStatus());
                 obj.put(String.valueOf(counter), uo);
                 counter++;

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import registration.Interceptors.Logged;
 import registration.entity.TransferRequest;
-import registration.entity.User;
 import registration.repository.InstanceRepository;
 import registration.repository.TransferRequestRepository;
 
@@ -16,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Logged
@@ -43,7 +45,7 @@ public class ViewTransfersByValueServlet extends HttpServlet implements Instance
                 log.error("There are no transfer requests uploaded {}", this.getServletName(), new NullPointerException());
                 throw new NullPointerException();
             }
-
+            DateFormat dataObj = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z");
             log.info("Try to generate JSON object in servlet {}", this.getServletName());
             JSONObject obj = new JSONObject();
             int counter = 0;
@@ -56,7 +58,7 @@ public class ViewTransfersByValueServlet extends HttpServlet implements Instance
                 uo.put("email_to", tr.getToEmail());
                 uo.put("amount", tr.getAmount());
                 uo.put("currency", tr.getCurrency());
-                uo.put("date", tr.getDate());
+                uo.put("date", dataObj.format(new Date(tr.getDate())));
                 uo.put("status", tr.getStatus());
                 obj.put(String.valueOf(counter), uo);
                 counter++;

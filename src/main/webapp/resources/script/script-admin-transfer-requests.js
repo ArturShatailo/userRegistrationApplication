@@ -92,6 +92,9 @@ function createTransferRecord(datum) {
     let transfer = document.createElement("div");
     transfer.className = "transfer-record";
     transfer.setAttribute("transferid", datum["id"]);
+    let transferId = document.createElement("p");
+    transferId.textContent = datum["id"];
+    transferId.setAttribute("data-target", "id");
     let transferFrom = document.createElement("p");
     transferFrom.textContent = datum["from-wallet"];
     transferFrom.setAttribute("data-target", "from");
@@ -124,6 +127,7 @@ function createTransferRecord(datum) {
     deleteButton.setAttribute("userid", datum["id"]);
     deleteButton.textContent = "Delete";*/
 
+    transfer.append(transferId);
     transfer.append(transferFrom);
     transfer.append(transferFromEmail);
     transfer.append(transferTo);
