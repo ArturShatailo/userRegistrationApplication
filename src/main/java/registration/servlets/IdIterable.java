@@ -1,4 +1,4 @@
-package registration;
+package registration.servlets;
 
 import javax.servlet.http.HttpServletRequest;
 

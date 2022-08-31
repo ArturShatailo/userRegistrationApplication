@@ -1,8 +1,8 @@
 package registration.session;
 
 import lombok.extern.slf4j.Slf4j;
-import registration.CookieFactory;
-import registration.InstanceRepository;
+import registration.servlets.CookieFactory;
+import registration.repository.InstanceRepository;
 import registration.Interceptors.Logged;
 import registration.Loggable;
 import registration.entity.User;

@@ -1,10 +1,10 @@
 package registration.funds;
 
 import lombok.extern.slf4j.Slf4j;
-import registration.CookieFactory;
-import registration.InstanceRepository;
+import registration.servlets.CookieFactory;
+import registration.repository.InstanceRepository;
 import registration.Interceptors.Logged;
-import registration.Validable;
+import registration.servlets.Validable;
 import registration.entity.TransferRequest;
 import registration.entity.User;
 import registration.entity.Wallet;

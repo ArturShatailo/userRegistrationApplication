@@ -1,7 +1,7 @@
 package registration.session;
 
 import lombok.extern.slf4j.Slf4j;
-import registration.CookieFactory;
+import registration.servlets.CookieFactory;
 import registration.Interceptors.Logged;
 import registration.entity.User;
 

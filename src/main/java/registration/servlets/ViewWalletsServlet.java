@@ -1,10 +1,11 @@
-package registration;
+package registration.servlets;
 
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import registration.Interceptors.Logged;
 import registration.entity.User;
 import registration.entity.Wallet;
+import registration.repository.InstanceRepository;
 import registration.repository.WalletRepository;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

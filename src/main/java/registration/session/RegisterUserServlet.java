@@ -1,7 +1,11 @@
-package registration;
+package registration.session;
 
 import lombok.extern.slf4j.Slf4j;
+import registration.servlets.CookieFactory;
+import registration.servlets.IdIterable;
+import registration.repository.InstanceRepository;
 import registration.Interceptors.Logged;
+import registration.servlets.Validable;
 import registration.entity.User;
 
 import javax.servlet.ServletException;
@@ -12,7 +16,7 @@ import java.io.IOException;
 @Logged
 @Slf4j
 @WebServlet ("/registerUser")
-public class RegisterUserServlet extends HttpServlet implements InstanceRepository, IdIterable, CookieFactory{
+public class RegisterUserServlet extends HttpServlet implements InstanceRepository, IdIterable, CookieFactory {
 
     /**
      * Creates String variables set as received values from getParameter() method of HttpServletRequest 'req'.

@@ -2,10 +2,11 @@ package registration.repository;
 
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
-import registration.Crudable;
+import registration.servlets.Crudable;
 import registration.Interceptors.Logged;
 import registration.Loggable;
-import registration.Numbers;
+import registration.statics.CurrencyExchange;
+import registration.statics.Numbers;
 import registration.Technical.Tech;
 import registration.entity.User;
 import registration.entity.Wallet;

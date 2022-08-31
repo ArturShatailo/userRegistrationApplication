@@ -1,9 +1,10 @@
-package registration;
+package registration.servlets;
 
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import registration.Interceptors.Logged;
 import registration.entity.User;
+import registration.repository.InstanceRepository;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

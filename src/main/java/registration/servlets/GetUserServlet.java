@@ -1,4 +1,4 @@
-package registration;
+package registration.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import registration.Interceptors.Logged;
 import registration.entity.User;
+import registration.repository.InstanceRepository;
 
 @Logged
 @Slf4j

@@ -1,4 +1,4 @@
-package registration;
+package registration.statics;
 
 import java.util.ArrayList;
 import java.util.List;

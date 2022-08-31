@@ -1,7 +1,7 @@
 package registration.repository;
 
 import lombok.Cleanup;
-import registration.Crudable;
+import registration.servlets.Crudable;
 import registration.Interceptors.Logged;
 import registration.Loggable;
 import registration.entity.TransferRequest;

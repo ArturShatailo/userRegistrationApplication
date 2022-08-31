@@ -1,4 +1,4 @@
-package registration;
+package registration.servlets;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

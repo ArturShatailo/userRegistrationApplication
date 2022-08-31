@@ -1,4 +1,4 @@
-package registration.repository;
+package registration.statics;
 
 public interface CurrencyExchange {
 

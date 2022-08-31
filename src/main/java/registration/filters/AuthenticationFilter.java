@@ -1,6 +1,6 @@
 package registration.filters;
 
-import registration.CookieFactory;
+import registration.servlets.CookieFactory;
 import registration.entity.User;
 
 import javax.servlet.*;
