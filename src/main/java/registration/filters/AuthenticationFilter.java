@@ -54,7 +54,10 @@ public class AuthenticationFilter implements Filter, CookieFactory {
         return u == null && (uri.endsWith("/personal-area.jsp")
                 || uri.endsWith("/personal-area")
                 || uri.endsWith("/get-user")
-                || uri.endsWith("/editUserServlet"));
+                || uri.endsWith("/editUserServlet")
+                || uri.endsWith("/get-user-wallets")
+                || uri.endsWith("/transferFunds")
+                || uri.endsWith("/funds.jsp"));
     }
 
     private boolean adminPermission(User u, String uri) {
@@ -63,7 +66,10 @@ public class AuthenticationFilter implements Filter, CookieFactory {
                 || uri.endsWith("/get-user-byEmail")
                 || uri.endsWith("/viewByIDServlet")
                 || uri.endsWith("/get-users")
-                || uri.endsWith("/admin-users.jsp"));
+                || uri.endsWith("/get-transfer-request-byValue")
+                || uri.endsWith("/get-transfers")
+                || uri.endsWith("/admin-users.jsp")
+                || uri.endsWith("/admin-transfer-requests.jsp"));
     }
 
     @Override

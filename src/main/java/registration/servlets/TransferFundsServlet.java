@@ -41,7 +41,6 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
         Wallet toWallet = getWalletOfUser(to, resp, req);
         Wallet fromWallet = getWalletOfUser(from, resp, req);
 
-
         Validable v = () -> {
 
             double amountValue;

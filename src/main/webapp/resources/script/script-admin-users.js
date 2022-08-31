@@ -6,6 +6,7 @@ $(document).ready(function() {
     $(document).on('click', function (e){
         e.preventDefault();
         let _this = e.target;
+        console.log(_this);
         if(_this.matches("#deleteUser")){
             deleteUser($( _this ).attr("userid"));
         }
