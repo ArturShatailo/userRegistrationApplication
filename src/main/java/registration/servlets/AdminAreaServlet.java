@@ -30,10 +30,10 @@ public class AdminAreaServlet extends HttpServlet implements InstanceRepository,
         User admin = (User) session.getAttribute("admin");
 
         if(admin != null){
-            resp.sendRedirect("/admin.jsp");
+            resp.sendRedirect("/admin-users.jsp");
         } else {
             setCookie(resp, "errorMessage", "Sorry, unable to login", 5);
-            resp.sendRedirect("/login-admin.jsp");
+            resp.sendRedirect("/login-admin-users.jsp");
         }
     }
 

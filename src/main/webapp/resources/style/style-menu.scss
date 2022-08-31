@@ -1,12 +1,13 @@
-.personal-area-menu{
+.menu{
   width: 95vw; padding: 20px;
 
-  .personal-area-menu-list{
+  .menu-list{
     display: flex; justify-content: left; align-items: center;
 
     .menu-button{
-      font-size: 25px;
+      font-size: 20px;
       margin: 0 30px;
+      text-transform: uppercase;
     }
 
     .active-menu-link{

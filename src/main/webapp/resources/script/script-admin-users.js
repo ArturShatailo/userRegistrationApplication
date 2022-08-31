@@ -26,7 +26,7 @@ function showSearchByEmail(val) {
         },
         dataType: "json", // data to submit
         success: function (data) {
-            $(".display-scroll-wrapper").children().remove();
+            $(".display-users-section").children().remove();
             createUserRecord(data);
         },
         error: function () {
@@ -67,7 +67,7 @@ function getUsersData() {
         data: {},
         dataType: "json", // data to submit
         success: function (data) {
-            $(".display-scroll-wrapper").children().remove();
+            $(".display-users-section").children().remove();
 
             let keys = Object.keys(data).length;
             for (let i = 0; i < keys; i++) {
@@ -113,5 +113,5 @@ function createUserRecord(datum) {
     user.append(userPassword);
     user.append(deleteButton);
 
-    $(".display-scroll-wrapper").append(user);
+    $(".display-users-section").append(user);
 }

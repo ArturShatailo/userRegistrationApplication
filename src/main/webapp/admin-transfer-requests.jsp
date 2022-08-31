@@ -14,8 +14,8 @@
     <link href="<c:url value="/resources/style/style-menu.css" />" rel="stylesheet">
     <script src="<c:url value="/resources/script/jquery-3.6.0.min.js" />"></script>
     <script src="<c:url value="/resources/script/script-cookies.js" />"></script>
-    <script src="<c:url value="/resources/script/script-admin.js" />"></script>
-    <title>Admin page</title>
+    <script src="<c:url value="/resources/script/script-admin-transfer-requests.js" />"></script>
+    <title>Funds admin page</title>
 </head>
 <body>
 
@@ -25,14 +25,14 @@
 
     </div>
 
-    <nav class="personal-area-menu">
-        <div class="personal-area-menu-list">
-            <a class="menu-button funds-page-menu active-menu-link" href="users.jsp">Users</a>
-            <a class="menu-button funds-page-menu" href="transfer-requests.jsp">Transfer requests</a>
+    <nav class="menu">
+        <div class="menu-list">
+            <a class="menu-button page-menu" href="admin-users.jsp">Users</a>
+            <a class="menu-button page-menu active-menu-link" href="admin-transfer-requests.jsp">Transfer requests</a>
         </div>
     </nav>
 
-    <h1>ADMIN AREA</h1>
+    <h1>FUNDS ADMIN AREA</h1>
 </header>
 
 <main>
@@ -44,7 +44,7 @@
         </button>
     </section>
     <section class="display-section">
-        <div class="display-scroll-wrapper">
+        <div class="display-scroll-wrapper display-transfers-section">
 
         </div>
     </section>

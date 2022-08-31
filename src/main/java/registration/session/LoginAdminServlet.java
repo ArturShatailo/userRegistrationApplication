@@ -19,7 +19,7 @@ public class LoginAdminServlet extends HttpServlet implements InstanceRepository
     //private static final long serialVersionUID = 1L;
 
     /**
-     * Sends redirect to 'admin.jsp' page without data.
+     * Sends redirect to 'admin-users.jsp' page without data.
      *
      * @param req HttpServletRequest request received by servlet
      * @param resp HttpServletResponse response sent by servlet
@@ -27,7 +27,7 @@ public class LoginAdminServlet extends HttpServlet implements InstanceRepository
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/login-admin.jsp");
+        resp.sendRedirect("/login-admin-users.jsp");
     }
 
     @Override
@@ -57,7 +57,7 @@ public class LoginAdminServlet extends HttpServlet implements InstanceRepository
             log.info("An attempt to logging in as an admin by user: {} in servlet: {}", email, this.getServletName());
 
             setCookie(resp, "errorMessage", "You are not an admin user", 5);
-            resp.sendRedirect("/login-admin.jsp");
+            resp.sendRedirect("/login-admin-users.jsp");
         }
     }
 
