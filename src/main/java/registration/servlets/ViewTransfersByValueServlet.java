@@ -41,7 +41,7 @@ public class ViewTransfersByValueServlet extends HttpServlet implements Instance
             List<TransferRequest> ltr = trr.getAllByValue(value);
 
             //Checks if any record found
-            if (ltr != null && ltr.size() == 0) {
+            if (ltr == null || ltr.size() == 0) {
                 log.error("There are no transfer requests uploaded {}", this.getServletName(), new NullPointerException());
                 throw new NullPointerException();
             }

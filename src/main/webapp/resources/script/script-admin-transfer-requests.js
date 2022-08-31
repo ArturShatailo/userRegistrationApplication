@@ -29,7 +29,7 @@ function showSearchByValue(val) {
 
             clearTransfersSection();
             let keys = Object.keys(data).length;
-            if (keys === 0) clearTransfersSection();
+            if (keys < 1) clearTransfersSection();
             else for (let i = 0; i < keys; i++) createTransferRecord(data[i]);
         },
         error: function () {
@@ -77,7 +77,7 @@ function getTransfersData() {
 
             clearTransfersSection();
             let keys = Object.keys(data).length;
-            if (keys === 0) clearTransfersSection();
+            if (keys < 1) clearTransfersSection();
             else for (let i = 0; i < keys; i++) createTransferRecord(data[i]);
         },
         error: function () {
