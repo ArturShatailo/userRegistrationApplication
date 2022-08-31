@@ -4,42 +4,53 @@ import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import registration.Interceptors.Logged;
+import registration.entity.TransferRequest;
 import registration.entity.User;
 import registration.repository.InstanceRepository;
+import registration.repository.TransferRequestRepository;
+import registration.servlets.CookieFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
 @Logged
 @Slf4j
-@WebServlet("/get-users")
-public class ViewServlet extends HttpServlet implements InstanceRepository, CookieFactory{
+@WebServlet("/get-transfers")
+public class ViewTransfersServlet extends HttpServlet implements InstanceRepository, CookieFactory {
+
+    TransferRequestRepository trr = new TransferRequestRepository();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        List<User> lu = ur.getAll();
+        List<TransferRequest> ltr = trr.getAll();
 
         //if(user != null && lu != null){
-        log.info("Try to get all users in servlet {}", this.getServletName());
+        log.info("Try to get all transfers in servlet {}", this.getServletName());
 
             resp.setContentType("application/json");
             JSONObject obj = new JSONObject();
 
             int counter = 0;
-            for(User u : lu){
+            for(TransferRequest tr : ltr){
                 JSONObject uo = new JSONObject();
-                uo.put("id", u.getId());
-                uo.put("name", u.getName());
-                uo.put("surname", u.getSurname());
-                uo.put("email", u.getEmail());
-                uo.put("country", u.getCountry());
-                uo.put("password", u.getPassword());
+                uo.put("id", tr.getId());
+                uo.put("from-wallet", tr.getFrom());
+                uo.put("email_from", tr.getFromEmail());
+                uo.put("to_wallet", tr.getTo());
+                uo.put("email_to", tr.getToEmail());
+                uo.put("amount", tr.getAmount());
+                uo.put("currency", tr.getCurrency());
+                uo.put("date", tr.getDate());
+                uo.put("status", tr.getStatus());
                 obj.put(String.valueOf(counter), uo);
                 counter++;
             }

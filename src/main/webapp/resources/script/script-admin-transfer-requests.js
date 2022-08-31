@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     //Calls function that fills html with received from database values
-    getUsersData();
+    getTransfersData();
 
     /*$(document).on('click', function (e){
         e.preventDefault();
@@ -27,7 +27,11 @@ function showSearchByValue(val) {
         dataType: "json", // data to submit
         success: function (data) {
             $(".display-transfers-section").children().remove();
-            createTransferRecord(data);
+
+            let keys = Object.keys(data).length;
+            for (let i = 0; i < keys; i++) {
+                createTransferRecord(data[i]);
+            }
         },
         error: function () {
             setCookie("errorMessage", "Unable to find record", 5);

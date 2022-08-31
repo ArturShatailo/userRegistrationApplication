@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 @Logged
 @Slf4j
 @WebServlet("/get-user-byEmail")
-public class ViewByEmailServlet extends HttpServlet implements InstanceRepository, IdIterable, CookieFactory {
+public class ViewUsersByEmailServlet extends HttpServlet implements InstanceRepository, IdIterable, CookieFactory {
 
     /**
      *

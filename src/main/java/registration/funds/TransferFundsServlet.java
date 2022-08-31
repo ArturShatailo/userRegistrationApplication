@@ -84,7 +84,6 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
             return true;
         };
 
-
         if(v.formValidation()) {
 
             TransferRequest transferRequest = new TransferRequest(from, fromWallet.getOwner(), to,

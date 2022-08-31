@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 @Logged
 @Slf4j
 @WebServlet("/viewByIDServlet")
-public class ViewByIDServlet extends HttpServlet implements InstanceRepository, IdIterable {
+public class ViewUsersByIDServlet extends HttpServlet implements InstanceRepository, IdIterable {
 
     /**
      * try to get id value by getID() method and in case of no NullPointerException, calls getById() method of
