@@ -66,6 +66,7 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
             }
 
             if(fromWallet != null && toWallet != null){
+                log.info("unable to create new request {}", fromWallet);
                 if(!fromWallet.getOwner().equals(user.getEmail())){
                     setCookie(resp, "errorMessage", "Wrong wallet", 5);
                     return false;
