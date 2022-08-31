@@ -97,7 +97,7 @@ main {
       @include displayFlex(column, flex-start, flex-start);
       height: 400px;
       width: 100%;
-      overflow-x: hidden;
+      overflow-x: scroll;
       align-items: center;
 
       @media (min-width: 767px) {
@@ -116,7 +116,7 @@ main {
         @include displayFlex(column, flex-start, flex-start);
         height: auto;
         width: 100%;
-        overflow-x: scroll;
+        /*overflow-x: scroll;*/
         align-items: center;
 
         div {
@@ -132,38 +132,36 @@ main {
           }
 
         }
+      }
+      .content-table-inner {
 
-        .content-table-inner {
+        @include displayFlex(column, flex-start, flex-start);
+        height: auto;
+        width: 100%;
+        overflow-x: scroll;
+        align-items: center;
 
-          @include displayFlex(column, flex-start, flex-start);
-          height: auto;
-          width: 100%;
-          overflow-x: scroll;
-          align-items: center;
+        div {
+          @include displayFlex(row, center, center);
+          padding: 10px 0;
+          background-color: #ffffff00;
+          transition: 0.3s;
+          cursor: pointer;
 
-          div {
-            @include displayFlex(row, center, center);
-            padding: 10px 0;
-            background-color: #ffffff00;
-            transition: 0.3s;
-            cursor: pointer;
-
-            &:hover {
-              background-color: #ffffff2e;
-            }
-
-            p {
-              min-width: 175px;
-              font-size: 16px;
-              color: $secondary;
-              font-weight: 500;
-              text-align: center;
-            }
-
+          &:hover {
+            background-color: #ffffff2e;
           }
+
+          p {
+            min-width: 175px;
+            font-size: 16px;
+            color: $secondary;
+            font-weight: 500;
+            text-align: center;
+          }
+
         }
       }
-
     }
 
   }
