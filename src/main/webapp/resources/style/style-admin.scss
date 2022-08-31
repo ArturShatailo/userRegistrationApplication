@@ -108,7 +108,7 @@ main {
 
       @media (min-width: 1024px) {
         /*width: 1050px;*/
-        overflow-x: hidden;
+        overflow-x: scroll;
         height: 400px;
       }
 
@@ -138,7 +138,7 @@ main {
         @include displayFlex(column, flex-start, flex-start);
         height: auto;
         width: 100%;
-        overflow-x: scroll;
+        /*overflow-x: scroll;*/
         align-items: center;
 
         div {
