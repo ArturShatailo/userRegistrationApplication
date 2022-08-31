@@ -27,9 +27,10 @@ function showSearchByValue(val) {
         dataType: "json", // data to submit
         success: function (data) {
             $(".display-transfers-section").children().remove();
-
+            console.log("jjj")
             let keys = Object.keys(data).length;
             for (let i = 0; i < keys; i++) {
+                console.log(data[i])
                 createTransferRecord(data[i]);
             }
         },

@@ -38,17 +38,28 @@
 </header>
 
 <main>
-
     <section class="search-section">
-        <input id="search-value" class="search-value" type="email" name="search-value" placeholder="Email to search">
+        <input id="search-value" class="search-value" type="email" name="search-value" placeholder="Value to search">
         <button class="button" id="search-button">
             Search
         </button>
     </section>
     <section class="display-section">
-        <div class="display-scroll-wrapper display-users-section">
 
+        <div class="display-scroll-wrapper">
+            <div class="table-titles-section">
+                <div>
+                    <p>Name</p>
+                    <p>Surname</p>
+                    <p>Country</p>
+                    <p>Email</p>
+                    <p>Password</p>
+                    <p>Action</p>
+                </div>
+            </div>
+            <div class="display-users-section content-table-inner"></div>
         </div>
+
     </section>
 
 </main>

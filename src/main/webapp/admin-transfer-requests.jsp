@@ -36,7 +36,6 @@
 </header>
 
 <main>
-
     <section class="search-section">
         <input id="search-value" class="search-value" type="email" name="search-value" placeholder="Email to search">
         <button class="button" id="search-button">
