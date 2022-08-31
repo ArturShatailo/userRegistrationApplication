@@ -25,7 +25,7 @@
 
   <nav class="personal-area-menu">
     <div class="personal-area-menu-list">
-      <a class="menu-button funds-page-menu" href="funds.jsp">Funds</a>
+      <a class="menu-button pa-page-menu" href="funds.jsp">Funds</a>
       <a class="menu-button pa-page-menu active-menu-link" href="personal-area.jsp">Personal area</a>
     </div>
   </nav>

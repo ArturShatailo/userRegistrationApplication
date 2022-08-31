@@ -11,6 +11,7 @@
 <head>
     <link href="<c:url value="/resources/style/style-c-m.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/style/style-admin.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/style/style-menu.css" />" rel="stylesheet">
     <script src="<c:url value="/resources/script/jquery-3.6.0.min.js" />"></script>
     <script src="<c:url value="/resources/script/script-cookies.js" />"></script>
     <script src="<c:url value="/resources/script/script-admin.js" />"></script>
@@ -23,6 +24,13 @@
     <div class="cookies">
 
     </div>
+
+    <nav class="personal-area-menu">
+        <div class="personal-area-menu-list">
+            <a class="menu-button funds-page-menu active-menu-link" href="users.jsp">Users</a>
+            <a class="menu-button funds-page-menu" href="transfer-requests.jsp">Transfer requests</a>
+        </div>
+    </nav>
 
     <h1>ADMIN AREA</h1>
 </header>

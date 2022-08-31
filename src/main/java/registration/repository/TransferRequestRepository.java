@@ -24,7 +24,7 @@ public class TransferRequestRepository  implements Crudable<TransferRequest>, Lo
         int connectionStatus = 0;
 
         try {
-            String sql = "insert into transfer_requests(from_wallet, email_from, to_wallet, date, status) values (?,?,?,?,?)";
+            String sql = "insert into transfer_requests(from_wallet, email_from, to_wallet, email_to, date, status, amount, currency) values (?,?,?,?,?,?,?,?)";
 
             //Loggable interface method
             toLogStartSqlRequest("save()", sql);
@@ -34,8 +34,11 @@ public class TransferRequestRepository  implements Crudable<TransferRequest>, Lo
             ps.setString(1, transferRequest.getFrom());
             ps.setString(2, transferRequest.getFromEmail());
             ps.setString(3, transferRequest.getTo());
-            ps.setLong(4, transferRequest.getDate());
-            ps.setString(5, transferRequest.getStatus());
+            ps.setString(4, transferRequest.getToEmail());
+            ps.setLong(5, transferRequest.getDate());
+            ps.setString(6, transferRequest.getStatus());
+            ps.setString(7, transferRequest.getAmount());
+            ps.setString(8, transferRequest.getCurrency());
 
             //Loggable interface method
             toLogConnectionStatus("save()", connectionStatus);

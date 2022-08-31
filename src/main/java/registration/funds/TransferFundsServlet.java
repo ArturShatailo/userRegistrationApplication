@@ -87,7 +87,9 @@ public class TransferFundsServlet extends HttpServlet implements InstanceReposit
 
         if(v.formValidation()) {
 
-            TransferRequest transferRequest = new TransferRequest(from, fromWallet.getOwner(), to, amount, new Date().getTime(), "processed");
+            TransferRequest transferRequest = new TransferRequest(from, fromWallet.getOwner(), to,
+                    toWallet.getOwner(), amount, fromWallet.getCurrency(), new Date().getTime(), "processed");
+
             int statusRequest = transferRequestRepository.save(transferRequest);
 
             if (statusRequest > 0) {
