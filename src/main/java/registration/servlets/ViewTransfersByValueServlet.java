@@ -45,7 +45,7 @@ public class ViewTransfersByValueServlet extends HttpServlet implements Instance
                 log.error("There are no transfer requests uploaded {}", this.getServletName(), new NullPointerException());
                 throw new NullPointerException();
             }
-            DateFormat dataObj = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z");
+            DateFormat dataObj = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
             log.info("Try to generate JSON object in servlet {}", this.getServletName());
             JSONObject obj = new JSONObject();
             int counter = 0;

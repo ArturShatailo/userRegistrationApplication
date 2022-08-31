@@ -40,7 +40,7 @@ public class ViewTransfersServlet extends HttpServlet implements InstanceReposit
         resp.setContentType("application/json");
         JSONObject obj = new JSONObject();
 
-        DateFormat dataObj = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z");
+        DateFormat dataObj = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
         int counter = 0;
 
             for(TransferRequest tr : ltr){

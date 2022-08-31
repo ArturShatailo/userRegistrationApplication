@@ -30,11 +30,9 @@
             <a class="menu-button page-menu active-menu-link" href="admin-users.jsp">Users</a>
             <a class="menu-button page-menu" href="admin-transfer-requests.jsp">Transfer requests</a>
         </div>
-        <a class="menu-button page-menu" href="admin-transfer-requests.jsp">Transfer requests</a>
     </nav>
 
     <h1>USERS ADMIN AREA</h1>
-    <a class="menu-button page-menu" href="admin-transfer-requests.jsp">Transfer requests</a>
 </header>
 
 <main>
