@@ -105,7 +105,7 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
         //Loggable interface method
         toLogStartOfMethod("getWallet()", this.getClass().getName());
 
-        Wallet wallet = new Wallet();
+        Wallet wallet = null;
 
         try {
             @Cleanup Connection connection = getConnection();
@@ -120,7 +120,7 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
             ps.setString(2, currency);
             ResultSet rs = ps.executeQuery();
 
-            wallet = createObjectByValue(rs, wallet);
+            wallet = createObjectByValue(rs);
 
         } catch (SQLException sqlException) {
             //Loggable class method
@@ -132,15 +132,15 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
     }
 
     @Override
-    public Wallet createObjectByValue(ResultSet R, Wallet T) throws SQLException {
-        if (R.next()) {
-            T.setId(R.getInt(1));
-            T.setWallet_number(R.getString(2));
-            T.setOwner(R.getString(3));
-            T.setCurrency(R.getString(4));
-            T.setBalance(R.getDouble(5));
+    public Wallet createObjectByValue(ResultSet R) throws SQLException {
+        if (R.next()) { return new Wallet(
+                R.getInt(1),
+                R.getString(2),
+                R.getString(3),
+                R.getString(4),
+                R.getDouble(5));
         }
-        return T;
+        return null;
     }
     @Logged
     public int transferFunds(Wallet fromWallet, Wallet toWallet, String amount) {
@@ -207,7 +207,7 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
         //Loggable interface method
         toLogStartOfMethod("getByNumber()", this.getClass().getName());
 
-        Wallet wallet = new Wallet();
+        Wallet wallet = null;
 
         try {
             @Cleanup Connection connection = getConnection();
@@ -221,7 +221,7 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
             ps.setString(1, number);
             ResultSet rs = ps.executeQuery();
 
-            wallet = createObjectByValue(rs, wallet);
+            wallet = createObjectByValue(rs);
 
         } catch (SQLException sqlException) {
             //Loggable class method

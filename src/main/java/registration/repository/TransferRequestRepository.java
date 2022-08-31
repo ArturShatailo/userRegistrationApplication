@@ -72,7 +72,7 @@ public class TransferRequestRepository  implements Crudable<TransferRequest>, Lo
     }
 
     @Override
-    public TransferRequest createObjectByValue(ResultSet R, TransferRequest T) throws SQLException {
+    public TransferRequest createObjectByValue(ResultSet R) throws SQLException {
         return null;
     }
 }

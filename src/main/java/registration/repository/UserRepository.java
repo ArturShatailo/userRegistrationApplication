@@ -268,7 +268,7 @@ public class UserRepository implements Crudable<User>, Loggable, Connected {
         //Loggable interface method
         toLogStartOfMethod("getById()", this.getClass().getName());
 
-        User user = new User();
+        User user = null;
 
         try {
             @Cleanup Connection connection = getConnection();
@@ -284,7 +284,7 @@ public class UserRepository implements Crudable<User>, Loggable, Connected {
             ps.setBoolean(3, false);
             ResultSet rs = ps.executeQuery();
 
-            user = createObjectByValue(rs, user);
+            user = createObjectByValue(rs);
             
             //connection.close();
 
@@ -328,7 +328,7 @@ public class UserRepository implements Crudable<User>, Loggable, Connected {
         //Loggable interface method
         toLogStartOfMethod("getByEmail()", this.getClass().getName());
 
-        User user = new User();
+        User user = null;
 
         try {
             @Cleanup Connection connection = getConnection();
@@ -343,7 +343,7 @@ public class UserRepository implements Crudable<User>, Loggable, Connected {
             ps.setBoolean(3, false);
             ResultSet rs = ps.executeQuery();
 
-            user = createObjectByValue(rs, user);
+            user = createObjectByValue(rs);
 
             //connection.close();
 
@@ -358,27 +358,28 @@ public class UserRepository implements Crudable<User>, Loggable, Connected {
 
     /**
      * Using next() method checks if there are any record in 'rs' parameter instance of ResultSet.
-     * In case of true, sets fields of received in parameter 'user' object instance of User class as
+     * In case of true, sets fields of created 'user' object instance of User class as
      * column items from 'rs' object.
      *
      * @param rs ResultSet object from database that includes one row of database table
-     * @param user Object that should be filled out with data
      * @return User object with set fields
      * @throws SQLException can be thrown in case of none data in the ResultSet object or absence
      * of ResultSet object.
      */
     @Override
-    public User createObjectByValue(ResultSet rs, User user) throws SQLException {
+    public User createObjectByValue(ResultSet rs) throws SQLException {
+
         if (rs.next()) {
-            user.setId(rs.getInt(1));
-            user.setName(rs.getString(2));
-            user.setSurname(rs.getString(3));
-            user.setCountry(rs.getString(5));
-            user.setEmail(rs.getString(4));
-            user.setPassword(rs.getString(6));
-            user.setRole(rs.getString(7));
+            return new User(
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(5),
+                    rs.getString(4),
+                    rs.getString(6),
+                    rs.getString(7));
         }
-        return user;
+        return null;
     }
 
     /**
