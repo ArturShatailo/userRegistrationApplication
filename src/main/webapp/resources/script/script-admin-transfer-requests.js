@@ -3,13 +3,14 @@ $(document).ready(function() {
     //Calls function that fills html with received from database values
     getTransfersData();
 
-    /*$(document).on('click', function (e){
+    $(document).on('click', function (e){
         e.preventDefault();
         let _this = e.target;
-        if(_this.matches("#deleteUser")){
+        console.log(_this);
+        /*if(_this.matches("#deleteUser")){
             deleteUser($( _this ).attr("userid"));
-        }
-    })*/
+        }*/
+    })
     $("#search-button").click(function(){
         showSearch($("#search-value").val().trim());
     });
