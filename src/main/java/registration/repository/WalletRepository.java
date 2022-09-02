@@ -148,13 +148,20 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
         //Loggable interface method
         toLogStartOfMethod("transferFunds()", this.getClass().getName());
 
-        Double amountValue = Double.parseDouble(amount);
+        double amountValue = Double.parseDouble(amount);
         double argument = defineArgument(fromWallet.getCurrency(), toWallet.getCurrency());
-        double newBalanceFrom = fromWallet.getBalance() - amountValue;
-        double newBalanceTo = toWallet.getBalance() + (amountValue * argument);
+        double balanceFrom = fromWallet.getBalance();
+        double balanceTo = fromWallet.getBalance();
+        double newBalanceFrom = balanceFrom - amountValue;
+        double newBalanceTo = balanceTo + (amountValue * argument);
 
-        return makeTransaction(newBalanceFrom, newBalanceTo,
-                    fromWallet.getWallet_number(), toWallet.getWallet_number());
+        int transaction = makeTransaction(newBalanceFrom, newBalanceTo,
+                fromWallet.getWallet_number(), toWallet.getWallet_number());
+
+        return transaction > 0
+                ? 1
+                : makeTransaction(balanceFrom, balanceTo,
+                fromWallet.getWallet_number(), toWallet.getWallet_number());
     }
 
     @Logged
@@ -178,8 +185,9 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
             ps1.setDouble(1, newBalanceTo);
             ps1.setString(2, wallet_number_to);
 
-            connectionStatus = ps.executeUpdate();
-            connectionStatus = ps1.executeUpdate();
+            int connectionStatusFrom = ps.executeUpdate();
+            int connectionStatusTo = ps1.executeUpdate();
+            connectionStatus = connectionStatusFrom > 0 && connectionStatusTo > 0 ? 1 : 0;
 
             //Loggable class method
             toLogConnectionStatus("makeFromTransaction()", connectionStatus);
