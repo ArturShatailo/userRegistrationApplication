@@ -172,7 +172,6 @@ public class WalletRepository implements Crudable<Wallet>, Loggable, Connected, 
 
         try {
             @Cleanup Connection connection = getConnection();
-            //String sql = "delete from users where id=?";
             String sql = "update wallets set balance=? where wallet_number=?";
             //Loggable class method
             toLogStartSqlRequest("makeFromTransaction()", sql);

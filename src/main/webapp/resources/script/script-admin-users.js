@@ -75,7 +75,7 @@ function getUsersData() {
 
             clearUsersSection()
             let keys = Object.keys(data).length;
-            if (keys < 1) clearTransfersSection();
+            if (keys < 1) clearUsersSection();
             else for (let i = 0; i < keys; i++) createUserRecord(data[i]);
 
         },
