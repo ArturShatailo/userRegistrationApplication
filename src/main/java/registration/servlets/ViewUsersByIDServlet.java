@@ -1,4 +1,10 @@
-package registration;
+package registration.servlets;
+
+import lombok.Cleanup;
+import lombok.extern.slf4j.Slf4j;
+import registration.Interceptors.Logged;
+import registration.entity.User;
+import registration.repository.InstanceRepository;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,8 +14,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
+@Logged
+@Slf4j
 @WebServlet("/viewByIDServlet")
-public class ViewByIDServlet extends HttpServlet implements InstanceRepository, IdIterable {
+public class ViewUsersByIDServlet extends HttpServlet implements InstanceRepository, IdIterable {
 
     /**
      * try to get id value by getID() method and in case of no NullPointerException, calls getById() method of
@@ -25,28 +33,32 @@ public class ViewByIDServlet extends HttpServlet implements InstanceRepository, 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
+        @Cleanup PrintWriter out = resp.getWriter();
 
         try{
             //Calls method that returns "id" value from 'request' HttpServletRequest object
             int id = getID(req);
 
+            log.info("Try to get User by id: {} in servlet {}", id, this.getServletName());
+            log.info("Try to generate Object in servlet {}", this.getServletName());
             //Gets User object by method getById od UserRepository class according to the received id in request
             User user = ur.getById(id);
 
             //Checks if employee object is not null
             if (user == null){
+                log.error("Object is null in servlet {}", this.getServletName(), new NullPointerException());
                 throw new NullPointerException();
             }
             out.print(user);
 
-        } catch (NumberFormatException npe){
+        } catch (NumberFormatException nfe){
+            log.error("Id is null in servlet {}", this.getServletName(), nfe);
             out.print("Id is null");
         } catch (NullPointerException npe){
+            log.error("can't find this object in database in servlet {}", this.getServletName(), npe);
             out.print("Sorry, can't find this object in database");
         } finally {
-            out.close();
+            //out.close();
         }
-
     }
 }

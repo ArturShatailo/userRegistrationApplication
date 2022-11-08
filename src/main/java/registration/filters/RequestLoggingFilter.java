@@ -21,8 +21,10 @@ public class RequestLoggingFilter implements Filter {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         HttpServletRequest req = (HttpServletRequest) request;
         Enumeration<String> params = req.getParameterNames();
+
         while (params.hasMoreElements()) {
             String name = params.nextElement();
             String value = request.getParameter(name);
@@ -42,6 +44,5 @@ public class RequestLoggingFilter implements Filter {
     public void destroy() {
     }
 
-}
+}*/
 
-*/

@@ -12,24 +12,30 @@
 <head>
   <link href="<c:url value="/resources/style/style-c-m.css" />" rel="stylesheet">
   <link href="<c:url value="/resources/style/style-pa.css" />" rel="stylesheet">
+  <link href="<c:url value="/resources/style/style-menu.css" />" rel="stylesheet">
   <script src="<c:url value="/resources/script/jquery-3.6.0.min.js" />"></script>
   <script src="<c:url value="/resources/script/script-cookies.js" />"></script>
   <script src="<c:url value="/resources/script/script-pa.js" />"></script>
-  <title>Login page</title>
+  <title>Personal area</title>
 </head>
 <body>
 
 <header>
+  <div class="cookies"></div>
 
-  <div class="cookies">
-
-  </div>
-
+  <nav class="menu">
+    <div class="menu-list">
+      <a class="menu-button page-menu" href="funds.jsp">Funds</a>
+      <a class="menu-button page-menu active-menu-link" href="personal-area.jsp">Personal area</a>
+    </div>
+  </nav>
+  
   <h1>PERSONAL AREA</h1>
 </header>
 
 <section class="edit-user-pop-up">
   <form class="form register-form" action="editUserServlet" method="post">
+    <div class="close-pop-up">&#10006</div>
       <div class="form-group field">
         <input type="text" class="form-field" placeholder="Name" name="name" id='name' required />
         <label for="name" class="form-label">Name</label>

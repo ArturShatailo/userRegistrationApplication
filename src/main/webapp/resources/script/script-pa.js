@@ -14,7 +14,9 @@ $(document).ready(function() {
         //editUser();
     });
 
-
+    $(".close-pop-up").click(function(){
+        $(".edit-user-pop-up").css("display", "none");
+    });
 
 });
 
@@ -25,7 +27,7 @@ $(document).ready(function() {
  * In case of error, prints it to the console.log
  */
 function getCurrentUserData() {
-    $.ajax('/registration/get-user', {
+    $.ajax('/get-user', {
         type: 'GET',  // http method
         data: {},  // data to submit
         success: function (data) {

@@ -1,4 +1,4 @@
-package registration;
+package registration.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -6,11 +6,16 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
+import registration.Interceptors.Logged;
+import registration.entity.User;
+import registration.repository.InstanceRepository;
 
+@Logged
+@Slf4j
 @WebServlet("/get-user")
 public class GetUserServlet extends HttpServlet implements InstanceRepository, CookieFactory {
-
 
     /**
      * Gets object from session and cast it into User class. The value from session is set into 'user' object
@@ -32,6 +37,8 @@ public class GetUserServlet extends HttpServlet implements InstanceRepository, C
 
         if(user != null){
 
+            log.info("Try to get user information as JSON: {} by servlet {}", user, this.getServletName());
+
             resp.setContentType("application/json");
             JSONObject obj = new JSONObject();
 
@@ -42,10 +49,14 @@ public class GetUserServlet extends HttpServlet implements InstanceRepository, C
 
             PrintWriter out = resp.getWriter();
             out.println(obj);
+            out.close();
 
         } else {
+
+            log.info("Session is empty and user information cannot be uploaded by servlet {}", this.getServletName());
+
             setCookie(resp, "errorMessage", "Sorry, unable to login", 5);
-            resp.sendRedirect("/registration/login.jsp");
+            resp.sendRedirect("/login.jsp");
         }
 
     }

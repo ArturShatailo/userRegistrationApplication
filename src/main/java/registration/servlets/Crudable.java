@@ -1,4 +1,4 @@
-package registration;
+package registration.servlets;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,6 +58,6 @@ public interface Crudable<T> {
      * @return Object with set fields
      * @throws SQLException can be thrown in case of none data in the ResultSet object or absence of ResultSet object.
      */
-    T createObjectByValue(ResultSet R, T T) throws SQLException;
+    T createObjectByValue(ResultSet R) throws SQLException;
 
 }

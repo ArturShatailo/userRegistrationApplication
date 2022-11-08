@@ -1,6 +1,7 @@
-/*package registration.filters;
+package registration.filters;
 
-import registration.CookieFactory;
+import registration.servlets.CookieFactory;
+import registration.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebFilter("/*")
 public class AuthenticationFilter implements Filter, CookieFactory {
@@ -28,23 +28,48 @@ public class AuthenticationFilter implements Filter, CookieFactory {
 
         String uri = req.getRequestURI();
 
-        this.context.log("Requested Resource::http://localhost:8080" + uri);
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        User admin = (User) session.getAttribute("admin");
 
-        HttpSession session = req.getSession(false);
+        if(adminPermission(admin, uri)) noAccessRedirect(res);
+        else
+            if (userPermission(user, uri)) noAccessRedirect(res);
+            else
+                chain.doFilter(request, response);
 
-        if (session == null && !(uri.endsWith("/personal-area")
-                || uri.endsWith("/personal-area.jsp")
-                || uri.endsWith("/get-user")
-                || uri.endsWith("/viewByIDServlet")
-                || uri.endsWith("/deleteServlet"))) {
-            this.context.log("<<< Unauthorized access request");
-            setCookie(res, "errorMessage", "No access", 5);
-            res.sendRedirect("/registration/login.jsp");
-            //PrintWriter out = res.getWriter();
-            //out.println("No access!!!");
-        } else {
-            chain.doFilter(request, response);
+    }
+
+    private void noAccessRedirect(HttpServletResponse res) {
+        this.context.log("<<< Unauthorized access request");
+        setCookie(res, "errorMessage", "No access", 5);
+        try {
+            res.sendRedirect("/login.jsp");
+        } catch (IOException e) {
+            setCookie(res, "errorMessage", "Cannot redirect", 5);
         }
+    }
+
+    private boolean userPermission(User u, String uri) {
+        return u == null && (uri.endsWith("/personal-area.jsp")
+                || uri.endsWith("/personal-area")
+                || uri.endsWith("/get-user")
+                || uri.endsWith("/editUserServlet")
+                || uri.endsWith("/get-user-wallets")
+                || uri.endsWith("/transferFunds")
+                || uri.endsWith("/funds.jsp"));
+    }
+
+    private boolean adminPermission(User u, String uri) {
+        return u == null && (uri.endsWith("/admin-area")
+                || uri.endsWith("/deleteServlet")
+                || uri.endsWith("/get-user-byEmail")
+                || uri.endsWith("/viewByIDServlet")
+                || uri.endsWith("/get-users")
+                || uri.endsWith("/get-transfer-request-byValue")
+                || uri.endsWith("/get-transfers")
+                || uri.endsWith("/admin-users.jsp")
+                || uri.endsWith("/admin-transfer-requests.jsp"));
     }
 
     @Override
@@ -54,4 +79,3 @@ public class AuthenticationFilter implements Filter, CookieFactory {
         R.addCookie(cookie);
     }
 }
-*/

@@ -1,38 +1,21 @@
-package registration;
+package registration.repository;
+
+import lombok.Cleanup;
+import lombok.extern.slf4j.Slf4j;
+import registration.servlets.Crudable;
+import registration.Interceptors.Logged;
+import registration.Loggable;
+import registration.entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepository implements Crudable<User> {
+@Logged
+@Slf4j
+public class UserRepository implements Crudable<User>, Loggable, Connected {
 
-    /**
-     * Creates database connection constants and using DriverManager and method getConnection
-     * connects to the clarified in constants database address with password and username.
-     * SQLException is caught in case of database connection is failed.
-     *
-     * @return connection instance of class Connection
-     */
-    public static Connection getConnection() {
-
-        Connection connection = null;
-        String url = "jdbc:postgresql://localhost:5432/users";
-        String user = "postgres";
-        String password = "Postgresql";
-
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-            if (connection != null) {
-                System.out.println("Connection to the server PostgreSQL is successful.");
-            } else {
-                System.out.println("Connection failed.");
-            }
-        } catch (SQLException sqlException) {
-            System.out.println("SQL exception please read the error message: ");
-            sqlException.printStackTrace();
-        }
-        return connection;
-    }
+    WalletRepository walletRepository = new WalletRepository();
 
     /**
      * <p>
@@ -53,24 +36,43 @@ public class UserRepository implements Crudable<User> {
      * @param user Object that should be saved as a database record
      * @return 'connectionStatus' integer variable.
      */
+
+    @Logged
     @Override
     public int save(User user) {
+
+        //Loggable interface method
+        toLogStartOfMethod("save()", this.getClass().getName());
+
         int connectionStatus = 0;
 
         try {
-            Connection connection = getConnection();
-            PreparedStatement ps = connection.prepareStatement("insert into users(name, surname, email, country, password) values (?,?,?,?,?)");
+            String sql = "insert into users(name, surname, email, country, password, role) values (?,?,?,?,?,?)";
+
+            //Loggable interface method
+            toLogStartSqlRequest("save()", sql);
+
+            @Cleanup Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, user.getName());
             ps.setString(2, user.getSurname());
-            ps.setString(3, user.getCountry());
-            ps.setString(4, user.getEmail());
+            ps.setString(4, user.getCountry());
+            ps.setString(3, user.getEmail());
             ps.setString(5, user.getPassword());
+            ps.setString(6, user.getRole());
+
+            //Loggable interface method
+            toLogConnectionStatus("save()", connectionStatus);
 
             connectionStatus = ps.executeUpdate();
-            connection.close();
 
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+            //create wallets for each registered user
+            if (connectionStatus > 0)
+                connectionStatus = walletRepository.createWalletsForUser(user);
+
+        } catch (SQLException sqlException) {
+            toLogSqlException("save", sqlException);
+            //sqlException.printStackTrace();
         }
 
         return connectionStatus;
@@ -94,14 +96,23 @@ public class UserRepository implements Crudable<User> {
      * @param user Object that should be updated
      * @return 'connectionStatus' integer variable.
      */
+    @Logged
     @Override
     public int update(User user) {
+
+        //Loggable interface method
+        toLogStartOfMethod("update()", this.getClass().getName());
 
         int connectionStatus = 0;
 
         try {
-            Connection connection = getConnection();
-            PreparedStatement ps = connection.prepareStatement("update users set name=?,surname=?,email=?,country=?,password=? where id=?");
+            @Cleanup Connection connection = getConnection();
+            String sql = "update users set name=?,surname=?,email=?,country=?,password=? where id=?";
+
+            //Loggable interface method
+            toLogStartSqlRequest("update()", sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, user.getName());
             ps.setString(2, user.getSurname());
             ps.setString(3, user.getEmail());
@@ -109,11 +120,16 @@ public class UserRepository implements Crudable<User> {
             ps.setString(5, user.getPassword());
             ps.setInt(6, user.getId());
 
-            connectionStatus = ps.executeUpdate();
-            connection.close();
+            //Loggable interface method
+            toLogConnectionStatus("update()", connectionStatus);
 
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+            connectionStatus = ps.executeUpdate();
+            //connection.close();
+
+        } catch (SQLException sqlException) {
+            //Loggable interface method
+            toLogSqlException("update()", sqlException);
+            //sqlException.printStackTrace();
         }
 
         return connectionStatus;
@@ -136,23 +152,90 @@ public class UserRepository implements Crudable<User> {
      * @param id column 'id' value as a field 'id' of object that should be deleted from database table
      * @return 'connectionStatus' integer variable.
      */
+    @Logged
     @Override
     public int delete(int id) {
+
+        //Loggable interface method
+        toLogStartOfMethod("delete()", this.getClass().getName());
+
         int connectionStatus = 0;
 
         try {
-            Connection connection = getConnection();
-            PreparedStatement ps = connection.prepareStatement("delete from users where id=?");
+            @Cleanup Connection connection = getConnection();
+            String sql = "delete from users where id=?";
+
+            //Loggable class method
+            toLogStartSqlRequest("delete()", sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             connectionStatus = ps.executeUpdate();
 
+            //Loggable class method
+            toLogConnectionStatus("delete()", connectionStatus);
+
             connection.close();
 
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException sqlException) {
+            //Loggable class method
+            toLogSqlException("delete()", sqlException);
+            //sqlException.printStackTrace();
         }
         return connectionStatus;
     }
+
+    /**
+     * <p>
+     *     Inside try-catch construction creates 'connection' object as an instance of Connection class,
+     *     using method getConnection().
+     *     Creates PreparedStatement object with 'update' SQL request, using prepareStatement() method of
+     *     Connection class with 'connection' object.
+     *     Sets received parameter 'id' as 'id' parameter for SQL request and isdeleted as true value;
+     *     Executes SQL request with executeUpdate method of 'ps' object instance of PreparedStatement class.
+     *     Closes connection here.
+     * </p>
+     * <p>
+     *     Catches SQLException and prints it.
+     * </p>
+     *
+     * @param id column 'id' value as a field 'id' of object that should be updated in database table
+     * @return 'connectionStatus' integer variable.
+     */
+    @Logged
+    public int deleteUserById(int id) {
+
+        //Loggable interface method
+        toLogStartOfMethod("deleteUserById()", this.getClass().getName());
+
+        int connectionStatus = 0;
+
+        try {
+            @Cleanup Connection connection = getConnection();
+            //String sql = "delete from users where id=?";
+            String sql = "update users set isdeleted=? where id=?";
+            //Loggable class method
+            toLogStartSqlRequest("deleteUserById()", sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setBoolean(1, true);
+            ps.setInt(2, id);
+            connectionStatus = ps.executeUpdate();
+
+            //Loggable class method
+            toLogConnectionStatus("deleteUserById()", connectionStatus);
+
+            connection.close();
+
+        } catch (SQLException sqlException) {
+            //Loggable class method
+            toLogSqlException("deleteUserById()", sqlException);
+            //sqlException.printStackTrace();
+        }
+        return connectionStatus;
+    }
+
+
 
     /**
      * <p>
@@ -161,7 +244,8 @@ public class UserRepository implements Crudable<User> {
      *     getConnection() method.
      *     Creates 'ps' object instance of PreparedStatement class. 'ps' is set as a result of method
      *     prepareStatement of connection object with SQL 'select' request as a parameter 'sql'.
-     *     Received in 'id' parameter is set as 'id' parameter of SQL request.
+     *     Received in 'id' parameter is set as 'id' parameter of SQL request. "user" value is set as
+     *     role column and false value is set as isdeleted column in SQL request.
      *     The request is processing using executeQuery method of PreparedStatement 'ps' object. The return of
      *     executeQuery method is set as 'rs' object instance of ResultSet class.
      * </p>
@@ -177,23 +261,37 @@ public class UserRepository implements Crudable<User> {
      * @param id column 'id' value as a field 'id' of object that should be found in database table
      * @return created 'user' object instance of User class
      */
+    @Logged
     @Override
     public User getById(int id) {
 
-        User user = new User();
+        //Loggable interface method
+        toLogStartOfMethod("getById()", this.getClass().getName());
+
+        User user = null;
 
         try {
-            Connection connection = getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from users where id=?");
+            @Cleanup Connection connection = getConnection();
+
+            String sql = "select * from users where id=? AND role=? AND isdeleted=?";
+
+            //Loggable class method
+            toLogStartSqlRequest("getById()", sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
+            ps.setString(2, "user");
+            ps.setBoolean(3, false);
             ResultSet rs = ps.executeQuery();
 
-            user = createObjectByValue(rs, user);
+            user = createObjectByValue(rs);
             
-            connection.close();
+            //connection.close();
 
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException sqlException) {
+            //Loggable class method
+            toLogSqlException("getById()", sqlException);
+            //sqlException.printStackTrace();
         }
 
         return user;
@@ -224,22 +322,35 @@ public class UserRepository implements Crudable<User> {
      * @param email column 'email' value as a field 'email' of object that should be found in database table
      * @return created 'user' object instance of User class
      */
+    @Logged
     public User getByEmail(String email) {
 
-        User user = new User();
-        Connection connection = getConnection();
+        //Loggable interface method
+        toLogStartOfMethod("getByEmail()", this.getClass().getName());
+
+        User user = null;
 
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from users where email=?");
+            @Cleanup Connection connection = getConnection();
+            String sql = "select * from users where email=? AND role=? AND isdeleted=?";
+
+            //Loggable class method
+            toLogStartSqlRequest("getByEmail()", sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, email);
+            ps.setString(2, "user");
+            ps.setBoolean(3, false);
             ResultSet rs = ps.executeQuery();
 
-            user = createObjectByValue(rs, user);
+            user = createObjectByValue(rs);
 
-            connection.close();
+            //connection.close();
 
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException sqlException) {
+            //Loggable class method
+            toLogSqlException("getByEmail()", sqlException);
+            //sqlException.printStackTrace();
         }
 
         return user;
@@ -247,26 +358,28 @@ public class UserRepository implements Crudable<User> {
 
     /**
      * Using next() method checks if there are any record in 'rs' parameter instance of ResultSet.
-     * In case of true, sets fields of received in parameter 'user' object instance of User class as
+     * In case of true, sets fields of created 'user' object instance of User class as
      * column items from 'rs' object.
      *
      * @param rs ResultSet object from database that includes one row of database table
-     * @param user Object that should be filled out with data
      * @return User object with set fields
      * @throws SQLException can be thrown in case of none data in the ResultSet object or absence
      * of ResultSet object.
      */
     @Override
-    public User createObjectByValue(ResultSet rs, User user) throws SQLException {
+    public User createObjectByValue(ResultSet rs) throws SQLException {
+
         if (rs.next()) {
-            user.setId(rs.getInt(1));
-            user.setName(rs.getString(2));
-            user.setSurname(rs.getString(3));
-            user.setCountry(rs.getString(5));
-            user.setEmail(rs.getString(4));
-            user.setPassword(rs.getString(6));
+            return new User(
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(5),
+                    rs.getString(4),
+                    rs.getString(6),
+                    rs.getString(7));
         }
-        return user;
+        return null;
     }
 
     /**
@@ -282,33 +395,46 @@ public class UserRepository implements Crudable<User> {
      *
      * @return created List of all User objects created with data received from database table
      */
+    @Logged
     @Override
     public List<User> getAll() {
+
+        //Loggable interface method
+        toLogStartOfMethod("getAll()", this.getClass().getName());
 
         List<User> usersList = new ArrayList<>();
 
         try {
-            Connection connection = getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from users");
+            @Cleanup Connection connection = getConnection();
+            String sql = "select * from users where role=? AND isdeleted=?";
+
+            //Loggable class method
+            toLogStartSqlRequest("getAll()", sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, "user");
+            ps.setBoolean(2, false);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) usersList.add( new User(
                                 rs.getInt(1),
                                 rs.getString(2),
-                                rs.getString(4),
                                 rs.getString(3),
                                 rs.getString(5),
-                                rs.getString(6)));
+                                rs.getString(4),
+                                rs.getString(6),
+                                rs.getString(7)));
 
-            connection.close();
+            //connection.close();
 
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException sqlException) {
+            //Loggable class method
+            toLogSqlException("getAll()", sqlException);
+            //sqlException.printStackTrace();
         }
 
         return usersList;
     }
-
 
 
 }

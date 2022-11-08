@@ -70,29 +70,96 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 70vh;
-  padding-bottom: 10vh;
+  /*height: 60vh;*/
+  padding-bottom: 20vh;
+  margin-top: 60px;
 }
-main .login-additional-links {
+main .note-message {
+  margin: 50px 0;
+  background-color: rgba(254, 159, 151, 0.1254901961);
+  padding: 20px;
+  width: 550px;
+}
+main .note-message p {
+  text-align: center;
+  font-size: 18px;
+  color: #fe9f97;
+  line-height: 24px;
+}
+main .funds-info {
+  flex-wrap: wrap;
+}
+@media (min-width: 767px) {
+  main .funds-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+}
+@media (min-width: 1024px) {
+  main .funds-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+  }
+}
+main .funds-info div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 15px;
+  width: 350px;
+  margin: 25px 0;
 }
-main .login-additional-links h5 {
-  margin-top: 5px;
+main .funds-info div .walletUSD-icon {
+  background-image: url("images/usd-wallet.png");
+}
+main .funds-info div .walletEUR-icon {
+  background-image: url("images/eur-wallet.png");
+}
+main .funds-info div .funds-info-icon {
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  margin-bottom: 20px;
+}
+main .funds-info div p {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 10px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+main .funds-info div p span {
+  color: #e5e837;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 5px;
 }
 main form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: transparent;
   box-shadow: #e5e837 0 0 10px;
-  width: 500px;
+  width: 510px;
   height: 400px;
   padding: 40px 40px;
+  position: relative;
+}
+main form .close-pop-up {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  color: #e5e837;
+  cursor: pointer;
 }
 main form .form-group-wrapper {
   display: flex;
@@ -157,4 +224,4 @@ main form .form-field:focus ~ .form-label {
   font-weight: 700;
 }
 
-/*# sourceMappingURL=style-register.css.map */
+/*# sourceMappingURL=style-funds.css.map */
